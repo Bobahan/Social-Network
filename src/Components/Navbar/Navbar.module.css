@@ -3,11 +3,11 @@
     background-color: green;
 }
 
-.navbar div {
-    padding: 5px;
+.item a {
+    color: white;
+    text-decoration: none;
 }
 
-.navbar div a {
-    text-decoration: none;
-    color: black;
+.item a.active {
+    color: gold;
 }
