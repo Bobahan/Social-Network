@@ -1,0 +1,13 @@
+.navbar {
+    grid-area: n;
+    background-color: green;
+}
+
+.navbar div {
+    padding: 5px;
+}
+
+.navbar div a {
+    text-decoration: none;
+    color: black;
+}
