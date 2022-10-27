@@ -1,0 +1,12 @@
+.parentContainer {
+    display: flex;
+}
+
+.users {
+    padding: 50px;
+}
+
+.imgUser {
+    width: 100px;
+    height: 100px;
+}
