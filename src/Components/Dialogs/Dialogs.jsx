@@ -6,21 +6,9 @@ import Message from "./Message/Message";
 
 // map перебирает массив и преобразовывает старый массив. На основе старого массива создается новый массив
 
-const Dialogs = () => {
-    let dialogsPage = {
-        dialogs: [
-            { id: 1, dialog: 'Vladimir' },
-            { id: 2, dialog: 'Alex' },
-            { id: 3, dialog: 'Andrey' },
-        ],
-        messages: [
-            { id: 1, message: 'I wanna be a best software engineer' },
-            { id: 2, message: 'I think that is the good idea' },
-        ],
-    }
-
-    let dialogs = dialogsPage.dialogs.map((d, id) => <Dialog key={id} id={d.id} dialog={d.dialog} />)
-    let messages = dialogsPage.messages.map((m, id) => <Message key={id} message={m.message} />)
+const Dialogs = (props) => {
+    let dialogs = props.dialogsPage.dialogs.map((d, id) => <Dialog key={id} id={d.id} dialog={d.dialog} />)
+    let messages = props.dialogsPage.messages.map((m, id) => <Message key={id} message={m.message} />)
 
     return (
         <div className={s.content}>

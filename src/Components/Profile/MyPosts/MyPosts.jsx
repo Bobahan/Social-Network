@@ -2,16 +2,8 @@ import React from "react"
 import s from './MyPosts.module.css'
 import Post from "./Post/Post"
 
-const MyPosts = () => {
-    let posts = {
-        post: [
-            { id: 1, message: 'Hello' },
-            { id: 2, message: 'How are you?' },
-            { id: 3, message: 'Yo Yo Yo guys!' },
-        ]
-    }
-
-    let post = posts.post.map((m, id) => <Post key={id} post={m.message} />)
+const MyPosts = (props) => {
+    let post = props.posts.post.map((m, id) => <Post key={id} post={m.message} />)
 
     return (
         <div style={{ 'margin': '10px' }}>
