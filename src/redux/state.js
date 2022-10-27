@@ -4,7 +4,8 @@ export let state = {
             { id: 1, message: 'Hello' },
             { id: 2, message: 'How are you?' },
             { id: 3, message: 'Yo Yo Yo guys!' },
-        ]
+        ],
+        currentTextValue:''
     },
     dialogsPage: {
         dialogs: [
@@ -18,3 +19,5 @@ export let state = {
         ],
     },
 }
+
+window.state = state
