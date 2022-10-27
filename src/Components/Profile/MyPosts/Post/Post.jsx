@@ -6,6 +6,6 @@ const Post = (props) => {
             {props.post}
         </div>
     )
-}
+} 
 
 export default Post

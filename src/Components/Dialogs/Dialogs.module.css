@@ -1,12 +1,28 @@
-.parentContainer {
-    display: flex;
+.content {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
 }
 
-.users {
-    padding: 50px;
+.dialogs {
+    padding: 10px;
 }
 
-.imgUser {
+.userImg {
     width: 100px;
     height: 100px;
+}
+
+h2 {
+    margin: 0;
+    text-align: center;
+}
+
+
+.messages {
+    padding: 10px;
+    text-align: center;
+}
+
+.dialogs .active {
+    color: gold;
 }
