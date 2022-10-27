@@ -6,15 +6,14 @@ import Profile from './Components/Profile/Profile';
 import Dialogs from './Components/Dialogs/Dialogs';
 
 function App(props) {
-
   return (
     <div className='app-wrapper'>
       <Header />
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path='/profile' element={<Profile posts={props.posts}/>} />
-          <Route path='/dialogs*' element={<Dialogs dialogsPage={props.dialogsPage} />} />
+          <Route path='/profile' element={<Profile profilePage={props.state.profilePage} />} />
+          <Route path='/dialogs*' element={<Dialogs dialogsPage={props.state.dialogsPage} />} />
         </Routes>
       </div>
     </div>

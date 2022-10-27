@@ -1,4 +1,11 @@
-let state = {
+export let state = {
+    profilePage: {
+        post: [
+            { id: 1, message: 'Hello' },
+            { id: 2, message: 'How are you?' },
+            { id: 3, message: 'Yo Yo Yo guys!' },
+        ]
+    },
     dialogsPage: {
         dialogs: [
             { id: 1, dialog: 'Vladimir' },
@@ -10,11 +17,4 @@ let state = {
             { id: 2, message: 'I think that is the good idea' },
         ],
     },
-    posts: {
-        post: [
-            { id: 1, message: 'Hello' },
-            { id: 2, message: 'How are you?' },
-            { id: 3, message: 'Yo Yo Yo guys!' },
-        ]
-    }
 }
