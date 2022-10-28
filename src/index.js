@@ -10,6 +10,7 @@ import { changePost } from './redux/state';
 import { subscribe } from './redux/state';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 let rerenderTree = () => {
   root.render(
     <React.StrictMode>

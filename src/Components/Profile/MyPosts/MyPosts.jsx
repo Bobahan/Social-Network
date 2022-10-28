@@ -5,14 +5,14 @@ const MyPosts = (props) => {
     let post = props.posts.post.map((m, id) => <Post key={id} post={m.message} />)
     let linkToInput = React.createRef()
 
-    let onAddPost = () => {
-        let text = linkToInput.current.value
-        props.addPost(text)
-    }
-
     let onChange = () => {
         let text = linkToInput.current.value
         props.changePost(text)
+    }
+
+    let onAddPost = () => {
+        let text = linkToInput.current.value
+        props.addPost(text)
     }
 
     return (
