@@ -3,13 +3,16 @@ import Post from "./Post/Post"
 
 const MyPosts = (props) => {
     let post = props.posts.post.map((m, id) => <Post key={id} post={m.message} />)
-    let currentTextValue = props.currentTextValue
+    let linkToInput = React.createRef()
 
-    let linkToInput = React.createRef() // тут сидит объект с текущим значением взятый из input
+    let onAddPost = () => {
+        let text = linkToInput.current.value
+        props.addPost(text)
+    }
 
-    const addPost = () => {
-        let text = linkToInput.current.value // в text у нас хранится текущее вводимое значение
-        console.log(text)
+    let onChange = () => {
+        let text = linkToInput.current.value
+        props.changePost(text)
     }
 
     return (
@@ -17,12 +20,11 @@ const MyPosts = (props) => {
             <h1>My posts</h1>
             {post}
             <div>
-                <input ref={linkToInput} />
-                <button onClick={addPost} style={{ 'marginLeft': '10px' }}>Add Post</button>
+                <input ref={linkToInput} value={props.newPostText} onChange={onChange} />
+                <button onClick={onAddPost} style={{ 'marginLeft': '10px' }}>Add Post</button>
             </div>
         </div>
     )
 }
-
 
 export default MyPosts

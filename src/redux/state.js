@@ -1,3 +1,5 @@
+let rerenderTree = () => { }
+
 export let state = {
     profilePage: {
         post: [
@@ -5,7 +7,7 @@ export let state = {
             { id: 2, message: 'How are you?' },
             { id: 3, message: 'Yo Yo Yo guys!' },
         ],
-        currentTextValue:''
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -18,6 +20,25 @@ export let state = {
             { id: 2, message: 'I think that is the good idea' },
         ],
     },
+}
+
+export const changePost = (actionText) => {
+    state.profilePage.newPostText = actionText
+    rerenderTree(state)
+}
+
+export const addPost = (actionPost) => {
+    let newPost = {
+        id: 4,
+        message: actionPost
+    }
+    state.profilePage.post.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderTree(state)
+}
+
+export let subscribe = (observer) => {
+    rerenderTree = observer
 }
 
 window.state = state
