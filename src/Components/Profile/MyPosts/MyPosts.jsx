@@ -11,8 +11,7 @@ const MyPosts = (props) => {
     }
 
     let onAddPost = () => {
-        let text = linkToInput.current.value
-        props.addPost(text)
+        props.addPost()
     }
 
     return (
