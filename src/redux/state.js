@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD_POST';
-const CHANGE_POST = 'CHANGE_POST';
+const UPDATE_POST = 'UPDATE_POST';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const UPDATE_MESSAGE = 'UPDATE_MESSAGE'
 
 let store = {
     _state: {
@@ -21,6 +23,7 @@ let store = {
                 { id: 1, message: 'I wanna be a best software engineer' },
                 { id: 2, message: 'I think that is the good idea' },
             ],
+            newMessageText: ''
         },
     },
     _callSubscriber() { },
@@ -39,8 +42,17 @@ let store = {
                 this._state.profilePage.newPostText = ''
                 this._callSubscriber(this._state)
                 break
-            case CHANGE_POST:
-                this._state.profilePage.newPostText = action.actionTEXT
+            case UPDATE_POST:
+                this._state.profilePage.newPostText = action.post
+                this._callSubscriber(this._state)
+                break
+            case ADD_MESSAGE:
+                this._state.dialogsPage.messages.push({ id: 3, message: this._state.dialogsPage.newMessageText })
+                this._state.dialogsPage.newMessageText = ''
+                this._callSubscriber(this._state)
+                break
+            case UPDATE_MESSAGE:
+                this._state.dialogsPage.newMessageText = action.message
                 this._callSubscriber(this._state)
                 break
             default:
@@ -50,7 +62,10 @@ let store = {
 }
 
 export const addPostActionCreator = () => ({ type: ADD_POST })
-export const changePostActionCreator = (text) => ({ type: CHANGE_POST, actionTEXT: text })
+export const updatePostActionCreator = (text) => ({ type: UPDATE_POST, post: text })
+
+export const addMessageActionCreator = () => ({ type: ADD_MESSAGE })
+export const updateMessageActionCreator = (text) => ({ type: UPDATE_MESSAGE, message: text })
 
 export default store
 

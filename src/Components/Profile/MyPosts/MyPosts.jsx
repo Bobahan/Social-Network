@@ -1,6 +1,6 @@
 import React from "react"
 import Post from "./Post/Post"
-import { addPostActionCreator, changePostActionCreator } from "../../../redux/state"
+import { addPostActionCreator, updatePostActionCreator } from "../../../redux/state"
 
 const MyPosts = (props) => {
     let post = props.posts.post.map((m, id) => <Post key={id} post={m.message} />)
@@ -8,7 +8,7 @@ const MyPosts = (props) => {
 
     let onChange = () => {
         let text = linkToInput.current.value
-        props.dispatch(changePostActionCreator(text))
+        props.dispatch(updatePostActionCreator(text))
     }
 
     let onAddPost = () => {
