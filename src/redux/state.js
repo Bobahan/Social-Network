@@ -1,7 +1,5 @@
-const ADD_POST = 'ADD_POST';
-const UPDATE_POST = 'UPDATE_POST';
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const UPDATE_MESSAGE = 'UPDATE_MESSAGE'
+import { dialogsReducer } from "./dialogs-reducer";
+import { profileReducer } from "./profile-reducer";
 
 let store = {
     _state: {
@@ -36,36 +34,11 @@ let store = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case ADD_POST:
-                this._state.profilePage.post.push({ id: 4, message: this._state.profilePage.newPostText })
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber(this._state)
-                break
-            case UPDATE_POST:
-                this._state.profilePage.newPostText = action.post
-                this._callSubscriber(this._state)
-                break
-            case ADD_MESSAGE:
-                this._state.dialogsPage.messages.push({ id: 3, message: this._state.dialogsPage.newMessageText })
-                this._state.dialogsPage.newMessageText = ''
-                this._callSubscriber(this._state)
-                break
-            case UPDATE_MESSAGE:
-                this._state.dialogsPage.newMessageText = action.message
-                this._callSubscriber(this._state)
-                break
-            default:
-                return this._state
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callSubscriber(this._state)
     }
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updatePostActionCreator = (text) => ({ type: UPDATE_POST, post: text })
-
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE })
-export const updateMessageActionCreator = (text) => ({ type: UPDATE_MESSAGE, message: text })
 
 export default store
 

@@ -2,7 +2,7 @@ import React from "react";
 import Dialog from "./Dialog/Dialog";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
-import { addMessageActionCreator, updateMessageActionCreator } from "../../redux/state";
+import { addMessageActionCreator, updateMessageActionCreator } from "../../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
     let dialogs = props.dialogsPage.dialogs.map((d, id) => <Dialog key={id} id={d.id} dialog={d.dialog} />)
@@ -26,7 +26,9 @@ const Dialogs = (props) => {
             <div className={s.messages}>
                 <div><h2>Messages</h2></div>
                 {messages}
-                <input onChange={onChange} value={props.dialogsPage.newMessageText} />
+                <div>
+                    <input onChange={onChange} value={props.dialogsPage.newMessageText} />
+                </div>
                 <div>
                     <button onClick={addMessage}>Add Message</button>
                 </div>
