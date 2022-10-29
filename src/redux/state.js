@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD_POST';
+const CHANGE_POST = 'CHANGE_POST';
+
 let store = {
     _state: {
         profilePage: {
@@ -20,27 +23,33 @@ let store = {
             ],
         },
     },
+    _callSubscriber() { },
+
     getState() {
         return this._state
     },
-    _callSubscriber() { },
-    changePost(actionText) {
-        this._state.profilePage.newPostText = actionText
-        this._callSubscriber(this._state)
-    },
-    addPost() {
-        let newPost = {
-            id: 4,
-            message: this._state.profilePage.newPostText
-        }
-        this._state.profilePage.post.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
-    },
     subscribe(observer) {
         this._callSubscriber = observer
+    },
+
+    dispatch(action) {
+        switch (action.type) {
+            case ADD_POST:
+                this._state.profilePage.post.push({ id: 4, message: this._state.profilePage.newPostText })
+                this._state.profilePage.newPostText = ''
+                this._callSubscriber(this._state)
+            case CHANGE_POST:
+                this._state.profilePage.newPostText = action.actionTEXT
+                this._callSubscriber(this._state)
+            default:
+                return this._state
+        }
     }
 }
 
+export const addPostActionCreator = () => ({ type: ADD_POST })
+export const changePostActionCreator = (text) => ({ type: CHANGE_POST, actionTEXT: text })
+
 export default store
+
 window.store = store
