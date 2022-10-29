@@ -38,9 +38,11 @@ let store = {
                 this._state.profilePage.post.push({ id: 4, message: this._state.profilePage.newPostText })
                 this._state.profilePage.newPostText = ''
                 this._callSubscriber(this._state)
+                break
             case CHANGE_POST:
                 this._state.profilePage.newPostText = action.actionTEXT
                 this._callSubscriber(this._state)
+                break
             default:
                 return this._state
         }
