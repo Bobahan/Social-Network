@@ -5,15 +5,15 @@ import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 
-function App(props) {
+function App() {
   return (
     <div className='app-wrapper'>
       <Header />
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path='/profile' element={<Profile profilePage={props.state.profilePage} dispatch={props.dispatch} />} />
-          <Route path='/dialogs*' element={<DialogsContainer dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/dialogs*' element={<DialogsContainer />} />
         </Routes>
       </div>
     </div>
