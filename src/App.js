@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
-import Dialogs from './Components/Dialogs/Dialogs';
+import DialogsContainer from './Components/Dialogs/DialogsContainer';
 
 function App(props) {
   return (
@@ -13,7 +13,7 @@ function App(props) {
       <div className='app-wrapper-content'>
         <Routes>
           <Route path='/profile' element={<Profile profilePage={props.state.profilePage} dispatch={props.dispatch} />} />
-          <Route path='/dialogs*' element={<Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />} />
+          <Route path='/dialogs*' element={<DialogsContainer dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />} />
         </Routes>
       </div>
     </div>
