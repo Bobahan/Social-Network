@@ -2,6 +2,11 @@ import { addPostActionCreator, updatePostActionCreator } from "../../../redux/pr
 import { connect } from "react-redux"
 import MyPosts from "./MyPosts"
 
+// Reducer меняет state, а connect подписан на обновления state'a
+// connect перерисовывает MyPost если в ней была запущена функция mapStateToProps
+
+// это connect общается со store
+
 const mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
