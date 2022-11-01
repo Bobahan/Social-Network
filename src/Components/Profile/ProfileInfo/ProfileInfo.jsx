@@ -6,7 +6,7 @@ const ProfileInfo = () => {
     return (
         <div style={{ 'margin': '10px' }}>
             <div>
-                <img src={userAvatar} className={s.userImg} />
+                <img alt="userAvatar" src={userAvatar} className={s.userImg} />
             </div>
             <div>
                 <div>Name: Vladimir</div>

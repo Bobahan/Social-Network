@@ -1,13 +1,13 @@
 import React from "react";
 import userImg from '../../assets/userImg.png'
+import axios from "axios";
 
 let Users = (props) => {
     if (props.users.length === 0) {
-        props.setUsers([
-            { id: 1, name: 'Vladimir', img: false, isFollowed: false },
-            { id: 2, name: 'Alex', img: false, isFollowed: true },
-            { id: 3, name: 'Dima', img: false, isFollowed: true },
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                props.setUsers(response.data.items)
+            })
     }
     return (
         <div>
@@ -16,9 +16,9 @@ let Users = (props) => {
                     <div key={u.id}>
                         {u.name}
                         <div>
-                            {!u.img ? <img src={userImg} style={{ 'width': '100px' }} /> : null}
+                            <img alt="userImg" style={{ 'width': '100px' }} src={u.photos.small ? u.photos.small : userImg} />
                         </div>
-                        {u.isFollowed
+                        {u.followed
                             ? <button onClick={() => { props.unfollow(u.id) }}>UNFOLLOW</button>
                             : <button onClick={() => { props.follow(u.id) }}>FOLLOW</button>}
                     </div>
@@ -27,7 +27,5 @@ let Users = (props) => {
         </div>
     )
 }
-
-
 
 export default Users

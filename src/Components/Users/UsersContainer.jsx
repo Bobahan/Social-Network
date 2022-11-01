@@ -6,7 +6,7 @@ const mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
         img: state.usersPage.img,
-        isFollowed: state.usersPage.isFollowed
+        followed: state.usersPage.followed
     }
 }
 
