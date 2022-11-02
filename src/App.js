@@ -4,7 +4,7 @@ import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import UsersContainer from './Components/Users/UsersContainer';
+import UsersContainer from './Components/Users/UsersAPI';
 
 function App() {
   return (
