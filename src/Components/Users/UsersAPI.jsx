@@ -24,7 +24,7 @@ class UsersAPI extends React.Component {
                 this.props.setUsers(response.data.items)
             })
     }
- 
+
     render() {
         return (
             <>

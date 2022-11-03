@@ -1,20 +1,24 @@
 import React from "react"
-import userAvatar from '../../../assets/user.jpeg'
+import Preloader from "../../Common/Preloader"
 import s from './ProfileInfo.module.css'
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
     return (
         <div style={{ 'margin': '10px' }}>
             <div>
-                <img alt="userAvatar" src={userAvatar} className={s.userImg} />
+                <img alt="userAvatar" src={props.profile.photos.small} className={s.userImg} />
             </div>
             <div>
-                <div>Name: Vladimir</div>
-                <div>City: Saint-Petersburg</div>
-                <div>Education: NEFU</div>
+                <>
+                    <div>{props.profile.aboutMe}</div>
+                    <div>{props.profile.fullName}</div>
+                    <div>{props.profile.userId}</div>
+                </>
             </div>
         </div>
     )
 }
-
 export default ProfileInfo
