@@ -10,7 +10,7 @@ let initialState = {
     totalUsersCount: 0,
     pageSize: 5,
     currentPage: 1,
-    isFetching: true
+    isFetching: false
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -60,9 +60,9 @@ export const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const followActionCreator = (userID) => ({ type: FOLLOW, userID })
-export const unfollowActionCreator = (userID) => ({ type: UNFOLLOW, userID })
-export const setUsersActionCreator = (users) => ({ type: SET_USERS, users })
-export const changePageActionCreator = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
-export const setTotalUsersCountActionCreator = (page) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount: page })
-export const fetchPreloaderActionCreator = (isFetching) => ({ type: IS_FETCHING, isFetching })
+export const follow = (userID) => ({ type: FOLLOW, userID })
+export const unfollow = (userID) => ({ type: UNFOLLOW, userID })
+export const setUsers = (users) => ({ type: SET_USERS, users })
+export const changePage = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
+export const setTotalUsersCount = (page) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount: page })
+export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching })

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { changePageActionCreator, followActionCreator, setUsersActionCreator, unfollowActionCreator, setTotalUsersCountActionCreator, fetchPreloaderActionCreator } from "../../redux/users-reducer";
+import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFetching } from "../../redux/users-reducer";
 import Users from "./Users";
 import axios from "axios";
 import Preloader from "../Common/Preloader";
@@ -24,7 +24,7 @@ class UsersAPI extends React.Component {
                 this.props.setUsers(response.data.items)
             })
     }
-
+ 
     render() {
         return (
             <>
@@ -54,27 +54,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userID) => {
-            dispatch(followActionCreator(userID))
-        },
-        unfollow: (userID) => {
-            dispatch(unfollowActionCreator(userID))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersActionCreator(users))
-        },
-        changePage: (pageNumber) => {
-            dispatch(changePageActionCreator(pageNumber))
-        },
-        setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCountActionCreator(totalUsersCount))
-        },
-        toogleIsFetching: (isFetching) => {
-            dispatch(fetchPreloaderActionCreator(isFetching))
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    changePage,
+    setTotalUsersCount,
+    toogleIsFetching
+})(UsersAPI)
