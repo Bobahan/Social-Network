@@ -13,9 +13,9 @@ const ProfileInfo = (props) => {
             </div>
             <div>
                 <>
-                    <div>{props.profile.aboutMe}</div>
-                    <div>{props.profile.fullName}</div>
-                    <div>{props.profile.userId}</div>
+                    <div>aboutMe: <span>{props.profile.aboutMe}</span></div>
+                    <div>fullName: <span>{props.profile.fullName}</span></div>
+                    <div>userID: <span>{props.profile.userId}</span></div>
                 </>
             </div>
         </div>

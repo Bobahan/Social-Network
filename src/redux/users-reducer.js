@@ -66,3 +66,10 @@ export const setUsers = (users) => ({ type: SET_USERS, users })
 export const changePage = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
 export const setTotalUsersCount = (page) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount: page })
 export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching })
+
+
+// UI должен дергать BLL
+// BLL дергает DAL
+// DAL дергает SERVER
+// SERVER возвращает ответ BLL
+// BLL дергает UI(перерисуйся)

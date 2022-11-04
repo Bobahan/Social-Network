@@ -1,10 +1,10 @@
 import React from "react";
 import style from './Header.module.css'
 
-const Header = () => {
+const Header = (props) => {
     return (
         <div className={style.header}>
-            HEADER
+            {props.isAuth ? props.login : 'Авторизуйся'}
         </div>
     )
 }

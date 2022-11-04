@@ -1,13 +1,12 @@
 import React from "react";
-
 import axios from "axios"
 import { connect } from "react-redux"
 import { setUserProfile } from "../../redux/profile-reducer";
-import { useParams, useLocation, useNavigate } from "react-router-dom"
+import { withRouter } from "../HOC/withRouter";
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-class ProfileContainer extends React.Component {
+class ProfileContainerAPI extends React.Component {
     componentDidMount() {
         let userID = this.props.router.params.userId
         if (!userID) {
@@ -21,7 +20,7 @@ class ProfileContainer extends React.Component {
     render() {
         return (
             <>
-                <ProfileInfo profile={this.props.profile} {...this.props} />
+                <ProfileInfo {...this.props} />
                 <MyPostsContainer />
             </>
         )
@@ -42,16 +41,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const withRouter = (Component) => {
-    const ComponentWithRouterProps = (props) => {
-        let params = useParams()
-        let location = useLocation()
-        let navigation = useNavigate()
-        return (
-            <Component router={{ params, location, navigation }} {...props} />
-        )
-    }
-    return ComponentWithRouterProps
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainerAPI))

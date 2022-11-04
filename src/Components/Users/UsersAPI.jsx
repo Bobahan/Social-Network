@@ -4,7 +4,7 @@ import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFet
 import Users from "./Users";
 import axios from "axios";
 import Preloader from "../Common/Preloader";
-class UsersAPI extends React.Component {
+class UsersContainerAPI extends React.Component {
     componentDidMount() {
         this.props.toogleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
@@ -61,4 +61,4 @@ export default connect(mapStateToProps, {
     changePage,
     setTotalUsersCount,
     toogleIsFetching
-})(UsersAPI)
+})(UsersContainerAPI) 
