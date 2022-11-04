@@ -7,7 +7,9 @@ import Preloader from "../Common/Preloader";
 class UsersContainerAPI extends React.Component {
     componentDidMount() {
         this.props.toogleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toogleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -18,12 +20,16 @@ class UsersContainerAPI extends React.Component {
     changeCurrentPage = (page) => {
         this.props.changePage(page)
         this.props.toogleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.toogleIsFetching(false)
                 this.props.setUsers(response.data.items)
             })
     }
+
+
 
     render() {
         return (
@@ -61,4 +67,9 @@ export default connect(mapStateToProps, {
     changePage,
     setTotalUsersCount,
     toogleIsFetching
-})(UsersContainerAPI) 
+})(UsersContainerAPI)
+
+
+// post запрос - когда мы отправляем что-то на сервер
+// когда мы отправляем нагрузку (payload) с клиента на сервер
+// это может быть формой, картинкой и тд

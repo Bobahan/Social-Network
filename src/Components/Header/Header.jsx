@@ -1,10 +1,18 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import style from './Header.module.css'
 
 const Header = (props) => {
     return (
         <div className={style.header}>
-            {props.isAuth ? props.login : 'Авторизуйся'}
+            <div>
+                LOGO
+                <div className={style.loginBlock}>
+                    {props.isAuth
+                        ? props.login
+                        : <NavLink style={{ 'textDecoration': 'none', 'color': 'white', 'cursor': 'pointer' }} to='/login'>Login</NavLink>}
+                </div>
+            </div>
         </div>
     )
 }
