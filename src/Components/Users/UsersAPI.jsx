@@ -2,34 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFetching } from "../../redux/users-reducer";
 import Users from "./Users";
-import axios from "axios";
 import Preloader from "../Common/Preloader";
+import { usersAPI } from "../../API/API";
+
 class UsersContainerAPI extends React.Component {
     componentDidMount() {
         this.props.toogleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(response => {
                 this.props.toogleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(response.items)
+                this.props.setTotalUsersCount(response.totalCount)
             })
     }
 
     changeCurrentPage = (page) => {
         this.props.changePage(page)
         this.props.toogleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
+        usersAPI.getUsers(page, this.props.pageSize)
             .then(response => {
                 this.props.toogleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(response.items)
             })
     }
-
-
 
     render() {
         return (
@@ -70,6 +65,10 @@ export default connect(mapStateToProps, {
 })(UsersContainerAPI)
 
 
-// post запрос - когда мы отправляем что-то на сервер
+// post запрос - когда мы отправляем что-то на сервер с клиентаа
 // когда мы отправляем нагрузку (payload) с клиента на сервер
 // это может быть формой, картинкой и тд
+
+
+// Промис - это обещание которое говорит о том что когда асинхронная операция закончится через промис можно будет обратиться к результату запроса. 
+// Он хранит результат будущей завершенной асинхронной функции 
