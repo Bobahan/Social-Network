@@ -4,13 +4,15 @@ const SET_USERS = 'SET_USERS'
 const CHANGE_PAGE = 'CHANGE_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const IS_FETCHING = 'IS_FETCHING'
+const IS_FOLLOWING = 'IS_FOLLOWING'
 
 let initialState = {
     users: [],
     totalUsersCount: 0,
     pageSize: 5,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -55,6 +57,13 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             }
+        case IS_FOLLOWING:
+            return {
+                ...state,
+                followingInProgress: action.isDisabling // чувака которого я хочу задизейблить
+                    ? [...state.followingInProgress, action.userID] // добавляю его в массив
+                    : state.followingInProgress.filter(id => id !== action.userID) // если он не пришел к нам в массив не добавляю
+            }
         default:
             return state
     }
@@ -66,6 +75,7 @@ export const setUsers = (users) => ({ type: SET_USERS, users })
 export const changePage = (currentPage) => ({ type: CHANGE_PAGE, currentPage })
 export const setTotalUsersCount = (page) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount: page })
 export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching })
+export const isFollowingProgress = (isDisabling, userID) => ({ type: IS_FOLLOWING, isDisabling, userID })
 
 
 // UI должен дергать BLL
@@ -73,3 +83,8 @@ export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching
 // DAL дергает SERVER
 // SERVER возвращает ответ BLL
 // BLL дергает UI(перерисуйся)
+
+
+// followingInProgress массив из пользователей
+// 1. disabled пользователя мы добавляем в массив
+// 2. и всех остальных пользователей которые не попали в массив мы отсеиваем 
