@@ -1,29 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFetching, isFollowingProgress } from "../../redux/users-reducer";
+import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFetching, isFollowingProgress, changeCurrentPageThunkCreator } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader";
-import { usersAPI } from "../../API/API";
+import { getUsersThunkCreator } from "../../redux/users-reducer";
 
 class UsersContainerAPI extends React.Component {
     componentDidMount() {
-        this.props.toogleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response => {
-                this.props.toogleIsFetching(false)
-                this.props.setUsers(response.items)
-                this.props.setTotalUsersCount(response.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     changeCurrentPage = (page) => {
         this.props.changePage(page)
-        this.props.toogleIsFetching(true)
-        usersAPI.getUsers(page, this.props.pageSize)
-            .then(response => {
-                this.props.toogleIsFetching(false)
-                this.props.setUsers(response.items)
-            })
+        this.props.changeCurrentPage(page, this.props.pageSize)
     }
 
     render() {
@@ -58,21 +47,36 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    changePage,
-    setTotalUsersCount,
-    toogleIsFetching,
-    isFollowingProgress
-})(UsersContainerAPI)
+let mapDispatchToProps = (dispatch) => {
+    return {
+        follow: (userID) => {
+            dispatch(follow(userID))
+        },
+        unfollow: (userID) => {
+            dispatch(unfollow(userID))
+        },
+        setUsers: (users) => {
+            dispatch(setUsers(users))
+        },
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage))
+        },
+        setTotalUsersCount: (page) => {
+            dispatch(setTotalUsersCount(page))
+        },
+        toogleIsFetching: (isFetching) => {
+            dispatch(toogleIsFetching(isFetching))
+        },
+        isFollowingProgress: (isDisabling, userID) => {
+            dispatch(isFollowingProgress(isDisabling, userID))
+        },
+        getUsers: (currentPage, pageSize) => {
+            dispatch(getUsersThunkCreator(currentPage, pageSize))
+        },
+        changeCurrentPage: (page, pageSize) => {
+            dispatch(changeCurrentPageThunkCreator(page, pageSize))
+        }
+    }
+}
 
-
-// post запрос - когда мы отправляем что-то на сервер с клиентаа
-// когда мы отправляем нагрузку (payload) с клиента на сервер
-// это может быть формой, картинкой и тд
-
-
-// Промис - это обещание которое говорит о том что когда асинхронная операция закончится через промис можно будет обратиться к результату запроса. 
-// Он хранит результат будущей завершенной асинхронной функции 
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainerAPI)

@@ -1,3 +1,5 @@
+import { usersAPI } from "../API/API"
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -60,9 +62,9 @@ export const usersReducer = (state = initialState, action) => {
         case IS_FOLLOWING:
             return {
                 ...state,
-                followingInProgress: action.isDisabling // чувака которого я хочу задизейблить
-                    ? [...state.followingInProgress, action.userID] // добавляю его в массив
-                    : state.followingInProgress.filter(id => id !== action.userID) // если он не пришел к нам в массив не добавляю
+                followingInProgress: action.isDisabling
+                    ? [...state.followingInProgress, action.userID]
+                    : state.followingInProgress.filter(id => id !== action.userID)
             }
         default:
             return state
@@ -78,13 +80,21 @@ export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching
 export const isFollowingProgress = (isDisabling, userID) => ({ type: IS_FOLLOWING, isDisabling, userID })
 
 
-// UI должен дергать BLL
-// BLL дергает DAL
-// DAL дергает SERVER
-// SERVER возвращает ответ BLL
-// BLL дергает UI(перерисуйся)
+export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+    dispatch(toogleIsFetching(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(response => {
+            dispatch(toogleIsFetching(false))
+            dispatch(setUsers(response.items))
+            dispatch(setTotalUsersCount(response.totalCount))
+        })
+}
 
-
-// followingInProgress массив из пользователей
-// 1. disabled пользователя мы добавляем в массив
-// 2. и всех остальных пользователей которые не попали в массив мы отсеиваем 
+export const changeCurrentPageThunkCreator = (page, pageSize) => (dispatch) => {
+    dispatch(toogleIsFetching(true))
+    usersAPI.getUsers(page, pageSize)
+        .then(response => {
+            dispatch(toogleIsFetching(false))
+            dispatch(setUsers(response.items))
+        })
+}
