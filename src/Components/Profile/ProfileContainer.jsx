@@ -5,6 +5,7 @@ import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { setProfileThunkCreator } from "../../redux/profile-reducer";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -38,7 +39,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-let ProfileContainerWithRouter = withRouter(ProfileContainer)
-let ProfileContaineriWithAuthRedirect = withAuthRedirect(ProfileContainerWithRouter)
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContaineriWithAuthRedirect)
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+    withRouter
+)(ProfileContainer)

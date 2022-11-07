@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 import React from "react";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
+import { compose } from "redux";
 
 class DialogsContainer extends React.Component {
     render() {
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-let DialosAithRedirect = withAuthRedirect(DialogsContainer)
 
-export default connect(mapStateToProps, mapDispatchToProps)(DialosAithRedirect)
+
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(DialogsContainer)
