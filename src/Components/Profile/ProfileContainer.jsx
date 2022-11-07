@@ -39,6 +39,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 let ProfileContainerWithRouter = withRouter(ProfileContainer)
-let ProfileAuthRedirect = withAuthRedirect(ProfileContainerWithRouter)
+let ProfileContaineriWithAuthRedirect = withAuthRedirect(ProfileContainerWithRouter)
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileAuthRedirect)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContaineriWithAuthRedirect)
