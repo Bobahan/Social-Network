@@ -80,9 +80,9 @@ export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching
 export const isFollowingProgress = (isDisabling, userID) => ({ type: IS_FOLLOWING, isDisabling, userID })
 
 
-export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+export const getUsersThunkCreator = (page, pageSize) => (dispatch) => {
     dispatch(toogleIsFetching(true))
-    usersAPI.getUsers(currentPage, pageSize)
+    usersAPI.getUsers(page, pageSize)
         .then(response => {
             dispatch(toogleIsFetching(false))
             dispatch(setUsers(response.items))
@@ -90,11 +90,24 @@ export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
         })
 }
 
-export const changeCurrentPageThunkCreator = (page, pageSize) => (dispatch) => {
-    dispatch(toogleIsFetching(true))
-    usersAPI.getUsers(page, pageSize)
+export const followThunkCreator = (userID) => (dispatch) => {
+    dispatch(isFollowingProgress(true, userID))
+    usersAPI.follow(userID)
         .then(response => {
-            dispatch(toogleIsFetching(false))
-            dispatch(setUsers(response.items))
+            if (response.resultCode === 0) {
+                dispatch(follow(userID))
+            }
+            dispatch(isFollowingProgress(false, userID))
+        })
+}
+
+export const unfollowThunkCreator = (userID) => (dispatch) => {
+    dispatch(isFollowingProgress(true, userID))
+    usersAPI.unfollow(userID)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(unfollow(userID))
+            }
+            dispatch(isFollowingProgress(false, userID))
         })
 }

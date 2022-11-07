@@ -4,8 +4,9 @@ import { withRouter } from "../HOC/withRouter";
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { setProfileThunkCreator } from "../../redux/profile-reducer";
+import { withAuthRedirect } from "../HOC/withAuthRedirect";
 
-class ProfileContainerAPI extends React.Component {
+class ProfileContainer extends React.Component {
     componentDidMount() {
         let userID = this.props.router.params.userId
         if (!userID) {
@@ -37,4 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainerAPI))
+let ProfileContainerWithRouter = withRouter(ProfileContainer)
+let ProfileAuthRedirect = withAuthRedirect(ProfileContainerWithRouter)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileAuthRedirect)

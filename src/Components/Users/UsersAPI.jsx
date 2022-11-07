@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { follow, unfollow, setUsers, changePage, setTotalUsersCount, toogleIsFetching, isFollowingProgress, changeCurrentPageThunkCreator } from "../../redux/users-reducer";
+import { changePage, isFollowingProgress, unfollowThunkCreator, followThunkCreator, getUsersThunkCreator } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader";
-import { getUsersThunkCreator } from "../../redux/users-reducer";
 
 class UsersContainerAPI extends React.Component {
     componentDidMount() {
@@ -12,7 +11,7 @@ class UsersContainerAPI extends React.Component {
 
     changeCurrentPage = (page) => {
         this.props.changePage(page)
-        this.props.changeCurrentPage(page, this.props.pageSize)
+        this.props.getUsers(page, this.props.pageSize)
     }
 
     render() {
@@ -49,33 +48,21 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        follow: (userID) => {
-            dispatch(follow(userID))
-        },
-        unfollow: (userID) => {
-            dispatch(unfollow(userID))
-        },
-        setUsers: (users) => {
-            dispatch(setUsers(users))
-        },
         changePage: (currentPage) => {
             dispatch(changePage(currentPage))
-        },
-        setTotalUsersCount: (page) => {
-            dispatch(setTotalUsersCount(page))
-        },
-        toogleIsFetching: (isFetching) => {
-            dispatch(toogleIsFetching(isFetching))
         },
         isFollowingProgress: (isDisabling, userID) => {
             dispatch(isFollowingProgress(isDisabling, userID))
         },
-        getUsers: (currentPage, pageSize) => {
-            dispatch(getUsersThunkCreator(currentPage, pageSize))
+        follow: (userID) => {
+            dispatch(followThunkCreator(userID))
         },
-        changeCurrentPage: (page, pageSize) => {
-            dispatch(changeCurrentPageThunkCreator(page, pageSize))
-        }
+        unfollow: (userID) => {
+            dispatch(unfollowThunkCreator(userID))
+        },
+        getUsers: (page, pageSize) => {
+            dispatch(getUsersThunkCreator(page, pageSize))
+        },
     }
 }
 

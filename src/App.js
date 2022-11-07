@@ -5,6 +5,7 @@ import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersAPI';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
+import Login from './Components/Login/Login';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </Route>
           <Route path='/dialogs*' element={<DialogsContainer />} />
           <Route path='/users' element={<UsersContainer />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
     </div>

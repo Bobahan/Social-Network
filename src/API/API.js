@@ -9,7 +9,7 @@ const instance = axios.create({
 })
 
 export const authAPI = {
-    auth: () => {
+    authMe: () => {
         return instance.get(`auth/me`)
             .then(response => {
                 return response.data

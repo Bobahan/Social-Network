@@ -10,7 +10,7 @@ const Header = (props) => {
                 <div className={style.loginBlock}>
                     {props.isAuth
                         ? props.login
-                        : <NavLink style={{ 'textDecoration': 'none', 'color': 'white', 'cursor': 'pointer' }} to='/login'>Login</NavLink>}
+                        : <NavLink style={{ 'textDecoration': 'none', 'color': 'white', 'cursor': 'pointer', 'fontWeight': '700' }} to='/login'>Login</NavLink>}
                 </div>
             </div>
         </div>
