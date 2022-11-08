@@ -17,7 +17,7 @@ class ProfileInfo extends React.Component {
                         <div>aboutMe: <span>{this.props.profile.aboutMe}</span></div>
                         <div>fullName: <span>{this.props.profile.fullName}</span></div>
                         <div>userID: <span>{this.props.profile.userId}</span></div>
-                        <ProfileStatus status={this.props.status} />
+                        <ProfileStatus updateStatus={this.props.updateStatus} status={this.props.status} />
                     </>
                 </div>
             </div>

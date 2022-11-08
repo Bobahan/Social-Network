@@ -3,17 +3,18 @@ import { connect } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import { setProfileThunkCreator } from "../../redux/profile-reducer";
-import { withAuthRedirect } from "../HOC/withAuthRedirect";
+import { getStatusThunkCreator, setProfileThunkCreator, updateStatusThunkCreator } from "../../redux/profile-reducer";
+// import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userID = this.props.router.params.userId
         if (!userID) {
-            userID = 2
+            userID = 26120
         }
         this.props.setProfile(userID)
+        this.props.getStatus(userID)
     }
     render() {
         return (
@@ -37,6 +38,12 @@ const mapDispatchToProps = (dispatch) => {
         setProfile: (userID) => {
             dispatch(setProfileThunkCreator(userID))
         },
+        getStatus: (userID) => {
+            dispatch(getStatusThunkCreator(userID))
+        },
+        updateStatus: (status) => {
+            dispatch(updateStatusThunkCreator(status))
+        }
     }
 }
 

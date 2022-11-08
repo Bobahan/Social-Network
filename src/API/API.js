@@ -19,7 +19,16 @@ export const authAPI = {
 
 export const profileAPI = {
     setProfile: (userID) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
+        return instance.get(`profile/${userID}`)
+    },
+    getStatus: (userID) => {
+        return instance.get(`profile/status/${userID}`)
+            .then(response => {
+                return response.data
+            })
+    },
+    updateStatus: (status) => {
+        return instance.put('profile/status/', { status: status })
     }
 }
 
