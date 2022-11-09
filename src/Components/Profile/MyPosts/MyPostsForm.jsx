@@ -1,9 +1,10 @@
 import React from "react";
 import { Field } from "redux-form";
 import { maxLength, required } from "../../../utilities/validators";
-import { Textarea } from "../../Common/Textarea";
+import { FormControl } from "../../Common/FormController/FormControl";
 
 const maxLength30 = maxLength(30)
+const Textarea = FormControl('textarea')
 
 const MyPostsForm = (props) => {
     return (
