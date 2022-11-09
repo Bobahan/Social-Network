@@ -10,7 +10,6 @@ const MyPosts = (props) => {
 
     const onSubmit = (formData) => {
         props.addPost(formData.post)
-        formData.post = ''
     }
 
     return (

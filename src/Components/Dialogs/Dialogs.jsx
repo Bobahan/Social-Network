@@ -9,9 +9,8 @@ const Dialogs = (props) => {
     let dialogs = props.dialogsPage.dialogs.map((d, id) => <Dialog key={id} id={d.id} dialog={d.dialog} />)
     let messages = props.dialogsPage.messages.map((m, id) => <Message key={id} message={m.message} />)
 
-    const onSubmit = (formData) => {
+    const addMessage = (formData) => {
         props.addMessage(formData.message)
-        formData.message = ''
     }
 
     return (
@@ -24,7 +23,7 @@ const Dialogs = (props) => {
             <div className={s.messages}>
                 <div><h2>Messages</h2></div>
                 {messages}
-                <DialogsReduxForm onSubmit={onSubmit} />
+                <DialogsReduxForm onSubmit={addMessage} />
             </div>
         </div>
     )
