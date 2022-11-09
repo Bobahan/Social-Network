@@ -1,28 +1,43 @@
-import { addPostActionCreator, updatePostActionCreator } from "../../../redux/profile-reducer"
+import React from "react"
+import Post from "./Post/Post"
+import { addPostActionCreator } from "../../../redux/profile-reducer"
 import { connect } from "react-redux"
-import MyPosts from "./MyPosts"
+import MyPostsForm from "./MyPostsForm"
+import { reduxForm } from "redux-form"
 
-// Reducer меняет state, а connect подписан на обновления state'a
-// connect перерисовывает MyPost если в ней была запущена функция mapStateToProps
+const MyPosts = (props) => {
+    let post = props.posts.map((m, id) => <Post key={id} post={m.message} />)
 
-// это connect общается со store
+    const onSubmit = (formData) => {
+        props.addPost(formData.post)
+        formData.post = ''
+    }
+
+    return (
+        <div style={{ 'margin': '10px' }}>
+            <h1>My posts</h1>
+            {post}
+            <div>
+                <PostReduxForm onSubmit={onSubmit} />
+            </div>
+        </div>
+    )
+}
 
 const mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addPost: () => {
-            dispatch(addPostActionCreator())
-        },
-        updatePost: (text) => {
-            dispatch(updatePostActionCreator(text))
+        addPost: (post) => {
+            dispatch(addPostActionCreator(post))
         }
     }
 }
+
+let PostReduxForm = reduxForm({ form: 'post' })(MyPostsForm)
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyPosts)
