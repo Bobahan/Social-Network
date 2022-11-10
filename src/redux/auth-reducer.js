@@ -23,8 +23,8 @@ export const authReducer = (state = initialState, action) => {
 
 export const setUserDataActionCreator = (email, id, login, isAuth) => ({ type: SET_USER_DATA, data: { email, id, login, isAuth } })
 
-export const authThunkCreator = () => (dispatch) => {
-    authAPI.authMe()
+export const authentication = () => (dispatch) => {
+    return authAPI.authMe()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let { email, id, login } = response.data.data
@@ -37,7 +37,7 @@ export const login = (email, password, rememberMe) => (dispatch) => {
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(authThunkCreator())
+                dispatch(authentication())
             } else {
                 let errorResponse = response.data.messages.length > 0 ? response.data.messages[0] : ''
                 dispatch(stopSubmit('login', { _error: errorResponse }))

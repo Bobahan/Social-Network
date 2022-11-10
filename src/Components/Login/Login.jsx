@@ -10,18 +10,17 @@ const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     }
+    if (props.isAuth) {
+        return <Navigate to={'/profile'} />
+    }
     return (
         <div>
-            {
-                props.isAuth
-                    ? <Navigate to={'/profile'} />
-                    : <div className={style.login}>
-                        <div>
-                            <h2 style={{ 'margin': '0' }}>Login</h2>
-                        </div>
-                        <LoginReduxForm onSubmit={onSubmit} />
-                    </div>
-            }
+            <div className={style.login}>
+                <div>
+                    <h2 style={{ 'margin': '0' }}>Login</h2>
+                </div>
+                <LoginReduxForm onSubmit={onSubmit} />
+            </div>
         </div>
     )
 }
