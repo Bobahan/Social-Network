@@ -6,10 +6,9 @@ const Header = (props) => {
     return (
         <div className={style.header}>
             <div>
-                LOGO
                 <div className={style.loginBlock}>
                     {props.isAuth
-                        ? props.login
+                        ? <div>{props.login}<span onClick={props.logout} style={{ 'cursor': 'pointer', 'color': 'white' }}> - Log out</span></div>
                         : <NavLink style={{ 'textDecoration': 'none', 'color': 'white', 'cursor': 'pointer', 'fontWeight': '700' }} to='/login'>Login</NavLink>}
                 </div>
             </div>
