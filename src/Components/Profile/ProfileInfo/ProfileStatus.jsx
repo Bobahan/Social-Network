@@ -1,5 +1,4 @@
-import React from "react";
-
+import React from "react"; 
 class ProfileStatus extends React.Component {
     constructor(props) {
         super(props)

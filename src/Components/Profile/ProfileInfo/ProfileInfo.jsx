@@ -2,6 +2,7 @@ import React from "react"
 import Preloader from "../../Common/Preloader"
 import s from './ProfileInfo.module.css'
 import ProfileStatus from "./ProfileStatus"
+import ProfileStatusWithHooks from "./ProfileStatusWithHook"
 class ProfileInfo extends React.Component {
     render() {
         if (!this.props.profile) {
@@ -17,7 +18,7 @@ class ProfileInfo extends React.Component {
                         <div>aboutMe: <span>{this.props.profile.aboutMe}</span></div>
                         <div>fullName: <span>{this.props.profile.fullName}</span></div>
                         <div>userID: <span>{this.props.profile.userId}</span></div>
-                        <ProfileStatus updateStatus={this.props.updateStatus} status={this.props.status} />
+                        <ProfileStatusWithHooks updateStatus={this.props.updateStatus} status={this.props.status} />
                     </>
                 </div>
             </div>
