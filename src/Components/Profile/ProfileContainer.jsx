@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
-import ProfileInfo from './ProfileInfo/ProfileInfo'
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { getStatusThunkCreator, setProfileThunkCreator, updateStatusThunkCreator } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
+import Profile from "./Profile";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -17,23 +16,20 @@ class ProfileContainer extends React.Component {
         this.props.getStatus(userID)
     }
     render() {
-        console.log('RENDER')
         return (
-            <>
-                <ProfileInfo {...this.props} />
-                <MyPostsContainer />
-            </>
+            <div>
+                <Profile {...this.props} />
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps PROFILE')
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         authorizedID: state.auth.id,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
     }
 }
 

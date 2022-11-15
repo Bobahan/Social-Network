@@ -16,7 +16,6 @@ class UsersContainerAPI extends React.Component {
     }
 
     render() {
-        console.log('ОТРИСУЙ USERS')
         return (
             <>
                 {this.props.isFetching ? <Preloader /> : null}
@@ -49,7 +48,6 @@ class UsersContainerAPI extends React.Component {
 // }
 
 let mapStateToProps = (state) => {
-    console.log('mapStateToProps USERS')
     return {
         users: getUsers(state),
         totalUsersCount: getTotalUsersCount(state),

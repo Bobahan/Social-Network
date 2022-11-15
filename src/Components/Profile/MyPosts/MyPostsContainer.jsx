@@ -1,26 +1,28 @@
-import React from "react"
+import React, { PureComponent } from "react"
 import Post from "./Post/Post"
 import { addPostActionCreator } from "../../../redux/profile-reducer"
 import { connect } from "react-redux"
 import MyPostsForm from "./MyPostsForm"
 import { reduxForm } from "redux-form"
 
-const MyPosts = (props) => {
-    let post = props.posts.map((m, id) => <Post key={id} post={m.message} />)
-
-    const onSubmit = (formData) => {
-        props.addPost(formData.post)
-    }
-
-    return (
-        <div style={{ 'margin': '10px' }}>
-            <h1>My posts</h1>
-            {post}
-            <div>
-                <PostReduxForm onSubmit={onSubmit} />
+class MyPosts extends PureComponent {
+    render() {
+        let post = this.props.posts.map((m, id) => <Post key={id} post={m.message} />)
+        let onSubmit = (formData) => {
+            this.props.addPost(formData.post)
+        }
+        return (
+            <div style={{ 'margin': '10px' }}>
+                <h1>My posts</h1>
+                <div>
+                    {post}
+                </div>
+                <div>
+                    <PostReduxForm onSubmit={onSubmit} />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 const mapStateToProps = (state) => {
