@@ -24,4 +24,4 @@ export const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const addMessageActionCreator = (message) => ({ type: ADD_MESSAGE, message })
+export const addMessage = (message) => ({ type: ADD_MESSAGE, message })
