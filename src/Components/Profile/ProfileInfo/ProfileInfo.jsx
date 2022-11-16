@@ -1,7 +1,6 @@
 import React from "react"
 import Preloader from "../../Common/Preloader"
 import s from './ProfileInfo.module.css'
-import ProfileStatus from "./ProfileStatus"
 import ProfileStatusWithHooks from "./ProfileStatusWithHook"
 class ProfileInfo extends React.Component {
     render() {

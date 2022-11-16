@@ -8,7 +8,7 @@ let initialState = {
     posts: [
         { id: 1, message: 'Hello' },
         { id: 2, message: 'How are you?' },
-        { id: 3, message: 'Yo Yo Yo guys!' },
+        { id: 3, message: 'Yo Yo o guys!' },
     ],
     profile: null,
     status: null
@@ -31,6 +31,11 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case 'DELETE-POST':
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postID)
+            }
         default:
             return state
     }
@@ -39,6 +44,7 @@ export const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (post) => ({ type: ADD_POST, post })
 export const setUserProfile = (profile) => ({ type: SET_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
+export const deletePost = (postID) => ({ type: 'DELETE-POST', postID })
 
 export const setProfileThunkCreator = (userID) => (dispatch) => {
     profileAPI.setProfile(userID)
