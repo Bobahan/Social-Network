@@ -88,20 +88,19 @@ export const getUsersTC = (page, pageSize) => async (dispatch) => {
     dispatch(setTotalUsersCount(response.totalCount))
 }
 
-export const followAccept = (userID) => async (dispatch) => {
+const followUnfollowFlow = async (dispatch, userID, apiMethod, actionCreator) => {
     dispatch(isFollowingProgress(true, userID))
-    let response = await usersAPI.follow(userID)
+    let response = await apiMethod(userID)
     if (response.resultCode === 0) {
-        dispatch(follow(userID))
+        dispatch(actionCreator(userID))
     }
     dispatch(isFollowingProgress(false, userID))
 }
 
+export const followAccept = (userID) => async (dispatch) => {
+    followUnfollowFlow(dispatch, userID, usersAPI.follow.bind(usersAPI), follow)
+}
+
 export const unfollowAccept = (userID) => async (dispatch) => {
-    dispatch(isFollowingProgress(true, userID))
-    let response = await usersAPI.unfollow(userID)
-    if (response.resultCode === 0) {
-        dispatch(unfollow(userID))
-    }
-    dispatch(isFollowingProgress(false, userID))
+    followUnfollowFlow(dispatch, userID, usersAPI.unfollow.bind(usersAPI), unfollow)
 }
