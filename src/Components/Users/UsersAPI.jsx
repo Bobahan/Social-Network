@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { changePage, isFollowingProgress, unfollowThunkCreator, followThunkCreator, getUsersThunkCreator } from "../../redux/users-reducer";
+import { changePage, isFollowingProgress, followAccept, unfollowAccept, getUsersTC } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader";
 import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
@@ -67,13 +67,13 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(isFollowingProgress(isDisabling, userID))
         },
         follow: (userID) => {
-            dispatch(followThunkCreator(userID))
+            dispatch(followAccept(userID))
         },
         unfollow: (userID) => {
-            dispatch(unfollowThunkCreator(userID))
+            dispatch(unfollowAccept(userID))
         },
         getUsers: (page, pageSize) => {
-            dispatch(getUsersThunkCreator(page, pageSize))
+            dispatch(getUsersTC(page, pageSize))
         },
     }
 }

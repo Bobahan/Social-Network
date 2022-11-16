@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
-import { getStatusThunkCreator, setProfileThunkCreator, updateStatusThunkCreator } from "../../redux/profile-reducer";
+import { getStatus, setProfile, updateStatus } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import Profile from "./Profile";
@@ -36,13 +36,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setProfile: (userID) => {
-            dispatch(setProfileThunkCreator(userID))
+            dispatch(setProfile(userID))
         },
         getStatus: (userID) => {
-            dispatch(getStatusThunkCreator(userID))
+            dispatch(getStatus(userID))
         },
         updateStatus: (status) => {
-            dispatch(updateStatusThunkCreator(status))
+            dispatch(updateStatus(status))
         }
     }
 }

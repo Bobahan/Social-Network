@@ -1,12 +1,12 @@
-import { usersAPI } from "../API/API"
+import { usersAPI } from "../API/API";
 
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET_USERS'
-const CHANGE_PAGE = 'CHANGE_PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
-const IS_FETCHING = 'IS_FETCHING'
-const IS_FOLLOWING = 'IS_FOLLOWING'
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS;'
+const CHANGE_PAGE = 'users/CHANGE_PAGE';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
+const IS_FETCHING = 'IS_FETCHING';
+const IS_FOLLOWING = 'IS_FOLLOWING';
 
 let initialState = {
     users: [],
@@ -15,12 +15,10 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
-    fake: 1
 }
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "FAKE": return { ...state, fake: state.fake + 1 }
         case FOLLOW:
             return {
                 ...state,
@@ -82,34 +80,28 @@ export const toogleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching
 export const isFollowingProgress = (isDisabling, userID) => ({ type: IS_FOLLOWING, isDisabling, userID })
 
 
-export const getUsersThunkCreator = (page, pageSize) => (dispatch) => {
+export const getUsersTC = (page, pageSize) => async (dispatch) => {
     dispatch(toogleIsFetching(true))
-    usersAPI.getUsers(page, pageSize)
-        .then(response => {
-            dispatch(toogleIsFetching(false))
-            dispatch(setUsers(response.items))
-            dispatch(setTotalUsersCount(response.totalCount))
-        })
+    let response = await usersAPI.getUsers(page, pageSize)
+    dispatch(toogleIsFetching(false))
+    dispatch(setUsers(response.items))
+    dispatch(setTotalUsersCount(response.totalCount))
 }
 
-export const followThunkCreator = (userID) => (dispatch) => {
+export const followAccept = (userID) => async (dispatch) => {
     dispatch(isFollowingProgress(true, userID))
-    usersAPI.follow(userID)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(follow(userID))
-            }
-            dispatch(isFollowingProgress(false, userID))
-        })
+    let response = await usersAPI.follow(userID)
+    if (response.resultCode === 0) {
+        dispatch(follow(userID))
+    }
+    dispatch(isFollowingProgress(false, userID))
 }
 
-export const unfollowThunkCreator = (userID) => (dispatch) => {
+export const unfollowAccept = (userID) => async (dispatch) => {
     dispatch(isFollowingProgress(true, userID))
-    usersAPI.unfollow(userID)
-        .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(unfollow(userID))
-            }
-            dispatch(isFollowingProgress(false, userID))
-        })
+    let response = await usersAPI.unfollow(userID)
+    if (response.resultCode === 0) {
+        dispatch(unfollow(userID))
+    }
+    dispatch(isFollowingProgress(false, userID))
 }
