@@ -1,6 +1,7 @@
 {
   "name": "social-network",
   "version": "0.1.0",
+  "homepage": "https://bobahan.github.io/social-network/",
   "private": true,
   "dependencies": {
     "@testing-library/react": "^13.4.0",
@@ -19,6 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,6 +47,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
+    "gh-pages": "^4.0.0",
     "react-test-renderer": "^18.2.0"
   },
   "jest": {
