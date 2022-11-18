@@ -16,14 +16,14 @@ const Paginator = ({ totalUsersCount, pageSize, currentPage, onPageChange, porti
     let rightPortionNumber = portionNumber * portionSize
 
     return (
-        <div >
+        <div style={{'display': 'flex', 'justifyContent': 'center', 'margin': '10px 0px 10px 0px'}}>
             {portionNumber > 1 && <button onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button>}
             {
                 pages
                     .filter(p => p >= leftPortionNumber && p <= rightPortionNumber)
                     .map((p) => {
                         return (
-                            <span key={p} onClick={() => { onPageChange(p) }} className={cn({
+                            <span style={{'padding': '10px'}} key={p} onClick={() => { onPageChange(p) }} className={cn({
                                 [style.selectedPage]: currentPage === p
                             }, style.pageNumber)}>
                                 {p}

@@ -1,10 +1,8 @@
 import './App.css';
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
-// import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer';
-// import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
 import { connect } from 'react-redux';
@@ -12,7 +10,6 @@ import { initializeApp } from './redux/app-reducer';
 import { withRouter } from './Components/HOC/withRouter';
 import { compose } from 'redux';
 import Preloader from './Components/Common/Preloader/Preloader';
-import { BrowserRouter } from 'react-router-dom';
 import store from './redux/redux-store';
 import { Provider } from 'react-redux';
 import { withSuspense } from './Components/HOC/withSuspense';
@@ -59,12 +56,12 @@ const AppContainer = compose(
   connect(mapStateToProps, { initializeApp })
 )(App)
 
-export const MainApp = (props) => {
+export const MainApp = () => {
   return (
-    <BrowserRouter basemname={`/${process.env.PUBLIC_URL}`}>
+    <HashRouter basemname={`/${process.env.PUBLIC_URL}`}>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
