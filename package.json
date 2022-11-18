@@ -1,7 +1,7 @@
 {
   "name": "social-network",
   "version": "0.1.0",
-  "homepage": "https://bobahan.github.io/social-network/",
+  "homepage": "https://bobahan.github.io/social-network",
   "private": true,
   "dependencies": {
     "@testing-library/react": "^13.4.0",
