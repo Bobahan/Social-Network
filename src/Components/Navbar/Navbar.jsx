@@ -9,7 +9,7 @@ const LinkActive = ({ isActive }) => {
 const Navbar = () => {
     return (
         <div className={style.navbar}>
-            <div style={{ 'padding': '15px' }}>
+            <div style={{ 'padding': '15px', 'textAlign': 'center' }}>
                 <div className={style.item}><NavLink className={LinkActive} to={"/profile"}>Profile</NavLink></div>
                 <div className={style.item}><NavLink className={LinkActive} to={"/dialogs"}>Dialogs</NavLink></div>
                 <div className={style.item}><NavLink className={LinkActive} to={"/news"}>News</NavLink></div>

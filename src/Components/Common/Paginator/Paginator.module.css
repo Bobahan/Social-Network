@@ -1,5 +1,5 @@
 .selectedPage {
-    color: green;
+    color: black;
     font-weight: 700;
 }
 
@@ -9,7 +9,7 @@
 
 .pageNumber {
     padding: 2px;
-    border: 1px solid grey;
+    border: 1px solid white;
 }
 
 .pageNumber.selectedPage {
