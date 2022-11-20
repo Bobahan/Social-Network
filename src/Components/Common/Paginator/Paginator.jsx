@@ -16,14 +16,14 @@ const Paginator = ({ totalUsersCount, pageSize, currentPage, onPageChange, porti
     let rightPortionNumber = portionNumber * portionSize
 
     return (
-        <div style={{ 'display': 'flex', 'justifyContent': 'center', 'margin': '10px 0px 10px 0px' }}>
-            {portionNumber > 1 && <div><button style={{ 'padding': '7px' }} onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button></div>}
+        <div style={{ 'display': 'flex', 'justifyContent': 'center', 'margin': '10px 0px 10px 0px', 'flexWrap': 'wrap' }}>
+            {portionNumber > 1 && <button style={{ 'padding': '10px' }} onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button>}
             {
                 pages
                     .filter(p => p >= leftPortionNumber && p <= rightPortionNumber)
                     .map((p) => {
                         return (
-                            <div key={p} onClick={() => { onPageChange(p) }} className={cn({
+                            <div style={{'cursor': 'pointer', 'padding': '10px'}} key={p} onClick={() => { onPageChange(p) }} className={cn({
                                 [style.selectedPage]: currentPage === p
                             }, style.pageNumber)}>
                                 {p}
@@ -31,7 +31,7 @@ const Paginator = ({ totalUsersCount, pageSize, currentPage, onPageChange, porti
                         )
                     })
             }
-            {portionCount > portionNumber && <div><button style={{ 'padding': '7px' }} onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button></div>}
+            {portionCount > portionNumber && <button style={{ 'padding': '10px' }} onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button>}
         </div>
     )
 }
