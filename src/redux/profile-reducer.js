@@ -48,14 +48,14 @@ export const profileReducer = (state = initialState, action) => {
 }
 
 export const addPostActionCreator = (post) => ({ type: ADD_POST, post })
-export const setUserProfile = (profile) => ({ type: SET_PROFILE, profile })
+export const getUserProfile = (profile) => ({ type: SET_PROFILE, profile })
 export const setStatus = (status) => ({ type: SET_STATUS, status })
 export const deletePost = (postID) => ({ type: 'DELETE-POST', postID })
 export const setProfilePhoto = (photo) => ({ type: SAVE_PHOTO, photo })
 
 export const setProfile = (userID) => async (dispatch) => {
     const response = await profileAPI.setProfile(userID)
-    dispatch(setUserProfile(response.data))
+    dispatch(getUserProfile(response.data))
 }
 
 export const getStatus = (userID) => async (dispatch) => {
@@ -77,9 +77,10 @@ export const updatePhoto = (photo) => async (dispatch) => {
     }
 }
 
-export const saveProfile = (profile) => async (dispatch) => {
-    let response = await profileAPI.saveProfile(profile)
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    const userID = getState().auth.id
+    const response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        dispatch(setUserProfile(profile))
+        dispatch(setProfile(userID))
     }
 }

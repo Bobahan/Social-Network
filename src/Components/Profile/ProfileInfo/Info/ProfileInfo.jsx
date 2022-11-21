@@ -22,6 +22,7 @@ const ProfileInfo = (props) => {
 
     const onSubmit = (formData) => {
         props.saveProfile(formData)
+        setEditMode(false)
     }
 
     if (!props.profile) {
@@ -37,7 +38,7 @@ const ProfileInfo = (props) => {
                 <span>Выберите файл</span>
             </label>
             {editMode
-                ? <ProfileDataReduxForm profile={props.profile} {...props} onSubmit={onSubmit} />
+                ? <ProfileDataReduxForm initialValues={props.profile} {...props} onSubmit={onSubmit} />
                 : <ProfileData profile={props.profile} {...props} activateEditMode={activateEditMode} />}
             <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status} />
         </div>

@@ -13,7 +13,6 @@ const ProfileDataForm = (props) => {
 
             <div style={{ 'display': 'flex' }}>
                 <div style={{ 'fontWeight': '700', 'borderBottom': '1px solid black', 'alignSelf': 'center' }}>AboutMe: </div>
-                <span style={{'alignSelf': 'center'}}>{props.profile.aboutMe}</span>
                 <Field name="aboutMe" component={Textarea} type="text" placeholder="About Me" style={{ 'marginLeft': '10px' }} />
             </div>
 
@@ -29,8 +28,7 @@ const ProfileDataForm = (props) => {
 
             <div style={{ 'display': 'flex' }}>
                 <span style={{ 'fontWeight': '700', 'borderRadius': '5%', 'alignSelf': 'center' }}>Looking For A Job Description:</span>
-                <span>{props.profile.lookingForAJobDescription}</span>
-                <Field name="lookingForAJobDescription" component={Input} type="text" placeholder="Looking For A Job Description" style={{ 'marginLeft': '10px' }} />
+                <Field name="lookingForAJobDescription" component={Input} type="text" placeholder="Yes / No" style={{ 'marginLeft': '10px' }} />
             </div>
 
             {/* <div style={{ 'display': 'flex' }}>
