@@ -2,10 +2,10 @@ import React from "react"
 import style from './Login.module.css';
 import { Field } from 'redux-form'
 import { required } from "../../utilities/validators";
-import { FormControl } from "../Common/FormController/FormControl";
+import {FormControlDiv } from "../Common/FormController/FormControl";
 import styles from '../Common/FormController/FormControl.module.css';
 
-const Input = FormControl('input')
+const Input = FormControlDiv('input')
 
 const LoginForm = ({ handleSubmit, error }) => {
     return (

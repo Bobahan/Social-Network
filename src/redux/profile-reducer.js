@@ -76,3 +76,10 @@ export const updatePhoto = (photo) => async (dispatch) => {
         dispatch(setProfilePhoto(response.data.data.photos))
     }
 }
+
+export const saveProfile = (profile) => async (dispatch) => {
+    let response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserProfile(profile))
+    }
+}

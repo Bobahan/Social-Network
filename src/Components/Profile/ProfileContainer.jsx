@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
-import { getStatus, setProfile, updatePhoto, updateStatus } from "../../redux/profile-reducer";
+import { getStatus, saveProfile, setProfile, updatePhoto, updateStatus } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import Profile from "./Profile";
@@ -26,7 +26,7 @@ class ProfileContainer extends React.Component {
     render() {
         return (
             <div>
-                <Profile {...this.props} isOwner={!this.props.router.params.userId} updatePhoto={this.props.updatePhoto} />
+                <Profile profile={this.props.profile} isOwner={!this.props.router.params.userId} updatePhoto={this.props.updatePhoto} saveProfile={this.props.saveProfile} />
             </div>
         )
     }
@@ -54,6 +54,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updatePhoto: (photo) => {
             dispatch(updatePhoto(photo))
+        },
+        saveProfile: (profile) => {
+            dispatch(saveProfile(profile))
         }
     }
 }
