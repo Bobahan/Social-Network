@@ -12,11 +12,11 @@ export const authAPI = {
     authMe: () => {
         return instance.get(`auth/me`)
     },
-    login: (email, password, rememberMe = false) => {
-        return instance.post(`auth/login`, { email, password, rememberMe })
+    login: (email, password, rememberMe = false, captcha = null) => {
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha })
     },
     logout: () => {
-        return instance.delete(`/auth/login`)
+        return instance.delete(`auth/login`)
     }
 }
 
@@ -34,7 +34,7 @@ export const profileAPI = {
     updatePhoto: (photo) => {
         let formData = new FormData()
         formData.append('image', photo)
-        return instance.put('/profile/photo', formData, {
+        return instance.put('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -57,5 +57,11 @@ export const usersAPI = {
     },
     unfollow: (userID) => {
         return instance.delete(`follow/${userID}`)
+    }
+}
+
+export const securityAPI = {
+    getCapcha: () => {
+        return instance.get('security/get-captcha-url')
     }
 }

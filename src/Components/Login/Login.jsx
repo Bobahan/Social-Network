@@ -6,20 +6,22 @@ import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 
-const Login = ({ login, isAuth }) => {
+const Login = (props) => {
     const onSubmit = (formData) => {
-        login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
-    if (isAuth) {
+
+    if (props.isAuth) {
         return <Navigate to={'/profile'} />
     }
+
     return (
         <div>
             <div className={style.login}>
                 <div>
                     <h2 style={{ 'margin': '0' }}>Login</h2>
                 </div>
-                <LoginReduxForm onSubmit={onSubmit} />
+                <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha} />
             </div>
         </div>
     )
@@ -27,7 +29,8 @@ const Login = ({ login, isAuth }) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captcha: state.auth.captcha
     }
 }
 
