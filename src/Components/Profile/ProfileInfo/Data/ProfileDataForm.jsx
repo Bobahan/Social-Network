@@ -1,7 +1,6 @@
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import { FormControlSpan } from "../../../Common/FormController/FormControl"
-import Contacts from "../Contacts/ProfileContacts"
 import styles from '../../../Common/FormController/FormControl.module.css'
 
 const Input = FormControlSpan('input')
@@ -45,5 +44,3 @@ const ProfileDataForm = ({ handleSubmit, error, profile }) => {
 
 const ProfileDataReduxForm = reduxForm({ form: 'profile' })(ProfileDataForm)
 export default ProfileDataReduxForm
-
-//  <Contacts key={key} contactTitle={key} contactValue={props.profile.contacts[key]} />

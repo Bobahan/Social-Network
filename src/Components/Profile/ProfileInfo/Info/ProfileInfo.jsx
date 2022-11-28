@@ -21,9 +21,10 @@ const ProfileInfo = (props) => {
     }
 
     const onSubmit = (formData) => {
+        debugger
         props.saveProfile(formData)
         setEditMode(false);
-    };
+    }
 
     if (!props.profile) {
         return <Preloader />

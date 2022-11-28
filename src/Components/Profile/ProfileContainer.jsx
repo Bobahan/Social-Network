@@ -15,18 +15,28 @@ class ProfileContainer extends React.Component {
         this.props.setProfile(userID)
         this.props.getStatus(userID)
     }
+
     componentDidMount() {
         this.updateProfile()
     }
+
     componentDidUpdate(prevProps) {
-        if (prevProps.router.params.userId !== this.props.router.params.userId) {
+        if (prevProps.router.params.userId !== this.props.router.params.userId) { // 5 !== 6 false // if (true)
             this.updateProfile()
         }
     }
+
     render() {
         return (
             <div>
-                <Profile profile={this.props.profile} isOwner={!this.props.router.params.userId} updatePhoto={this.props.updatePhoto} saveProfile={this.props.saveProfile} />
+                <Profile
+                    profile={this.props.profile}
+                    isOwner={!this.props.router.params.userId}
+                    updatePhoto={this.props.updatePhoto}
+                    saveProfile={this.props.saveProfile}
+                    updateStatus={this.props.updateStatus}
+                    status={this.props.status}
+                />
             </div>
         )
     }

@@ -2,11 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-
-// логику определили в контейнерной компоненте - WrapperRedirectComponent
-// когда к нам будет поступать целевая компонента - Component
-// HOC withRedirect вернет нам контейнерную компоненту с общим поведением для целевых компонент Component
-
 const mapStateToPropsForRedirect = (state) => {
     return {
         isAuth: state.auth.isAuth

@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import UsersContainer from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
@@ -21,6 +21,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp()
   }
+
   render() {
     if (!this.props.initialized) {
       return <Preloader />
@@ -31,13 +32,14 @@ class App extends React.Component {
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
+            <Route exact path='/' element={<Navigate to={'/profile'} />} />
             <Route path='/profile' element={<ProfileContainer />}>
               <Route path=':userId' element={<ProfileContainer />} />
             </Route>
-            <Route path='/dialogs*' element={<DialogsContainer />}>
-            </Route>
+            <Route path='/dialogs' element={<DialogsContainer />} />
             <Route path='/users' element={<UsersContainer />} />
             <Route path='/login' element={<Login />} />
+            <Route path='*' element={<div style={{ 'display': 'flex', "justifyContent": 'center', 'alignItems': 'center', 'height': '100%', 'fontWeight': '700' }}>404 NOT FOUND</div>} />
           </Routes>
         </div>
       </div>
@@ -58,10 +60,10 @@ const AppContainer = compose(
 
 export const MainApp = () => {
   return (
-    <HashRouter>
+    <BrowserRouter >
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }

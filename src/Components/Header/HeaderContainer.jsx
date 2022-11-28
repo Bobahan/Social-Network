@@ -18,12 +18,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        logout: () => {
-            dispatch(logout())
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)
+export default connect(mapStateToProps, {logout})(HeaderContainer)
