@@ -1,26 +1,13 @@
+
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../API/API";
+import { ContactsType, PhotosType } from "../types/types";
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
 const SAVE_PHOTO = 'profile/SAVE_PHOTO';
-
-type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-
-type PhotosType = {
-    small: string | null
-    large: string | null
-}
+const DELETE_POST = 'profile/DELETE-POST';
 
 type ProfileType = {
     userId: number
@@ -53,7 +40,7 @@ export const profileReducer = (state = initialState, action: any): InitialStateT
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, { id: 4, message: action.post }],
+                posts: [...state.posts, { id: 4, message: action.post }]
             }
         case SET_PROFILE:
             return {
@@ -65,7 +52,7 @@ export const profileReducer = (state = initialState, action: any): InitialStateT
                 ...state,
                 status: action.status
             }
-        case 'DELETE-POST':
+        case DELETE_POST:
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.postID)
@@ -100,10 +87,10 @@ type setStatusType = {
 export const setStatus = (status: string): setStatusType => ({ type: SET_STATUS, status })
 
 type deletePostType = {
-    type: 'DELETE-POST'
+    type: typeof DELETE_POST
     postID: number
 }
-export const deletePost = (postID: number): deletePostType => ({ type: 'DELETE-POST', postID })
+export const deletePost = (postID: number): deletePostType => ({ type: DELETE_POST, postID })
 
 type setProfilePhotoType = {
     type: typeof SAVE_PHOTO

@@ -1,11 +1,16 @@
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 
+type DialogsType = {
+    id: number,
+    dialog: string
+}
+
 let initialState = {
     dialogs: [
         { id: 1, dialog: 'Vladimir' },
         { id: 2, dialog: 'Alex' },
         { id: 3, dialog: 'Andrey' },
-    ] as { id: number, dialog: string }[],
+    ] as Array<DialogsType>,
     messages: [
         { id: 1, message: 'I wanna be a best software engineer' },
         { id: 2, message: 'I think that is the good idea' },
