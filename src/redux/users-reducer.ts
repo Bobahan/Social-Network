@@ -1,4 +1,4 @@
-import { PhotosType } from './../types/types';
+import { PhotosType, UsersType } from './../types/types';
 
 import { usersAPI } from "../API/API";
 
@@ -9,14 +9,6 @@ const CHANGE_PAGE = 'users/CHANGE_PAGE';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
 const IS_FETCHING = 'IS_FETCHING';
 const IS_FOLLOWING = 'IS_FOLLOWING';
-
-type UsersType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-}
 
 let initialState = {
     users: [] as Array<UsersType>,
