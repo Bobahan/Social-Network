@@ -5,6 +5,7 @@ import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, get
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { UsersType } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
 type PropsType = {
     currentPage: number
@@ -50,7 +51,7 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         users: getUsers(state),
         totalUsersCount: getTotalUsersCount(state),
