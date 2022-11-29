@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 import { changePage, isFollowingProgress, follow, unfollow, getUsersTC } from "../../redux/users-reducer";
 import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
 import Users from "./Users";
@@ -7,20 +7,26 @@ import Preloader from "../Common/Preloader/Preloader";
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
-type PropsType = {
-    currentPage: number
-    pageSize: number
-    page: number
-    isFetching: boolean
+type MapStatePropsType = {
     users: Array<UsersType>
     totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
     followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+    changePage: (page: number) => void
     getUsers: (currentPage: number, pageSize: number) => void
-    changePage: (page: number) => void 
+    isFollowingProgress: (isDisabling: boolean, userID: number) => void
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    onPageChange: (page: number) => void
 }
+
+type TOwnProps = {}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
@@ -43,6 +49,7 @@ class UsersContainer extends React.Component<PropsType> {
                     currentPage={this.props.currentPage}
                     followingInProgress={this.props.followingInProgress}
                     onPageChange={this.onPageChange.bind(this)}
+                    isFollowingProgress={this.props.isFollowingProgress}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
                 />
@@ -51,7 +58,7 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
-let mapStateToProps = (state: AppStateType) => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
         totalUsersCount: getTotalUsersCount(state),
@@ -62,7 +69,7 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: any) => {
+let mapDispatchToProps = (dispatch: any): MapDispatchPropsType => {
     return {
         changePage: (currentPage: number) => {
             dispatch(changePage(currentPage))
@@ -81,6 +88,4 @@ let mapDispatchToProps = (dispatch: any) => {
         }
     }
 }
-
-type PropsFromRedux = ConnectedProps<typeof connect>
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect<MapStatePropsType, MapDispatchPropsType, TOwnProps, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer)

@@ -12,6 +12,7 @@ type PropsType = {
     onPageChange: (page: number) => void
     follow: (userID: number) => void
     unfollow: (userID: number) => void
+    isFollowingProgress: (isDisabling: boolean, userID: number) => void
 }
 
 const Users: React.FC<PropsType> = ({ totalUsersCount, pageSize, onPageChange, currentPage, users, ...props }) => {

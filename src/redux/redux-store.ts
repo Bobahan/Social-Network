@@ -7,8 +7,11 @@ import ThunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './app-reducer';
 
+// в rootReducer сидит большой state со своими подчастями
+// ключи - это ветки большого state'а
+
 let rootReducer = combineReducers({
-    profilePage: profileReducer,
+    profilePage: profileReducer, 
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,

@@ -7,7 +7,6 @@ import ProfileStatusWithHooks from "../Status/ProfileStatusWithHook"
 import ProfileDataReduxForm from "../Data/ProfileDataForm"
 
 const ProfileInfo = (props) => {
-
     const [editMode, setEditMode] = useState(false)
 
     const activateEditMode = () => {
