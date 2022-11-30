@@ -1,13 +1,15 @@
 import React from "react"
 import style from './Login.module.css';
-import { Field } from 'redux-form'
+import { Field, InjectedFormProps } from 'redux-form'
 import { required } from "../../utilities/validators";
 import { FormControlDiv } from "../Common/FormController/FormControl";
 import styles from '../Common/FormController/FormControl.module.css';
+import { LoginFormOwnProps, LoginFormType } from "./Login";
 
 const Input = FormControlDiv('input')
 
-const LoginForm = ({ handleSubmit, error, captcha }) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormOwnProps> & LoginFormOwnProps> = ({ handleSubmit, error, captcha }) => {
+    debugger
     return (
         <form onSubmit={handleSubmit} style={{ 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column', 'alignItems': 'center' }}>
             <div style={{ 'paddingBottom': '5px' }}>

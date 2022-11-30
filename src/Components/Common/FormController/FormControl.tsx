@@ -1,7 +1,13 @@
 import React from "react";
 import style from './FormControl.module.css';
 
-export const FormControlDiv = (Element) => ({ input, meta, ...props }) => {
+type FormControlDivType = {
+    input: any
+    meta: any
+}
+
+export const FormControlDiv = (Element: React.FC | string) => ({ input, meta, ...props }: FormControlDivType) => {
+    debugger
     const hasError = meta.touched && meta.error
     return (
         <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
@@ -13,7 +19,18 @@ export const FormControlDiv = (Element) => ({ input, meta, ...props }) => {
     )
 }
 
-export const FormControlSpan = (Element) => ({ input, meta, ...props }) => {
+type FormControlSpanParamsType = {
+    input: any
+    meta: {
+        touched: boolean
+        error: string
+    }
+}
+
+type FormControlSpanType = (params: FormControlSpanParamsType) => React.ReactNode
+
+export const FormControlSpan = (Element: React.FC | string): FormControlSpanType => ({ input, meta, ...props }) => {
+    debugger
     const hasError = meta.touched && meta.error
     return (
         <span className={style.formControl + ' ' + (hasError ? style.error : '')}>
