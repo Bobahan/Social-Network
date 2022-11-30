@@ -1,22 +1,13 @@
 
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../API/API";
-import { ContactsType, PhotosType } from "../types/types";
+import { PhotosType, ProfileType } from "../types/types";
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
 const SAVE_PHOTO = 'profile/SAVE_PHOTO';
 const DELETE_POST = 'profile/DELETE-POST';
-
-type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string,
-    contacts: ContactsType
-    photos: PhotosType
-}
 
 type PostType = {
     id: number
