@@ -9,7 +9,6 @@ import { LoginFormOwnProps, LoginFormType } from "./Login";
 const Input = FormControlDiv('input')
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginFormOwnProps> & LoginFormOwnProps> = ({ handleSubmit, error, captcha }) => {
-    debugger
     return (
         <form onSubmit={handleSubmit} style={{ 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column', 'alignItems': 'center' }}>
             <div style={{ 'paddingBottom': '5px' }}>

@@ -49,8 +49,8 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    setProfile: (userID: number) => {
-        return instance.get(`profile/${userID}`)
+    getProfile: (userID: number) => {
+        return instance.get<ProfileType>(`profile/${userID}`).then(res => res.data)
     },
     getStatus: async (userID: number) => {
         let response = await instance.get(`profile/status/${userID}`)

@@ -7,7 +7,6 @@ type FormControlDivType = {
 }
 
 export const FormControlDiv = (Element: React.FC | string) => ({ input, meta, ...props }: FormControlDivType) => {
-    debugger
     const hasError = meta.touched && meta.error
     return (
         <div className={style.formControl + ' ' + (hasError ? style.error : '')}>
@@ -30,7 +29,6 @@ type FormControlSpanParamsType = {
 type FormControlSpanType = (params: FormControlSpanParamsType) => React.ReactNode
 
 export const FormControlSpan = (Element: React.FC | string): FormControlSpanType => ({ input, meta, ...props }) => {
-    debugger
     const hasError = meta.touched && meta.error
     return (
         <span className={style.formControl + ' ' + (hasError ? style.error : '')}>

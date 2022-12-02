@@ -1,7 +1,7 @@
-
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../API/API";
 import { PhotosType, ProfileType } from "../types/types";
+import { InferActionsType } from "./redux-store";
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
@@ -24,9 +24,18 @@ let initialState = {
     status: null as string | null,
 }
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
-export const profileReducer = (state = initialState, action: any): InitialStateType => {
+const actions = {
+    addPostActionCreator: (post: string) => ({ type: ADD_POST, post } as const),
+    getUserProfile: (profile: ProfileType) => ({ type: SET_PROFILE, profile } as const),
+    setStatus: (status: string) => ({ type: SET_STATUS, status } as const),
+    deletePost: (postID: number) => ({ type: DELETE_POST, postID } as const),
+    setProfilePhoto: (photo: PhotosType) => ({ type: SAVE_PHOTO, photo } as const),
+}
+type ActionsType = InferActionsType<typeof actions>
+
+export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -58,62 +67,30 @@ export const profileReducer = (state = initialState, action: any): InitialStateT
     }
 }
 
-type addPostActionCreatorType = {
-    type: typeof ADD_POST
-    post: string
-}
-
-export const addPostActionCreator = (post: string): addPostActionCreatorType => ({ type: ADD_POST, post })
-
-type getUserProfileType = {
-    type: typeof SET_PROFILE
-    profile: ProfileType
-}
-export const getUserProfile = (profile: ProfileType): getUserProfileType => ({ type: SET_PROFILE, profile })
-
-type setStatusType = {
-    type: typeof SET_STATUS
-    status: string
-}
-export const setStatus = (status: string): setStatusType => ({ type: SET_STATUS, status })
-
-type deletePostType = {
-    type: typeof DELETE_POST
-    postID: number
-}
-export const deletePost = (postID: number): deletePostType => ({ type: DELETE_POST, postID })
-
-type setProfilePhotoType = {
-    type: typeof SAVE_PHOTO
-    photo: PhotosType
-}
-
-export const setProfilePhoto = (photo: PhotosType): setProfilePhotoType => ({ type: SAVE_PHOTO, photo })
-
-export const setProfile = (userID: number) => async (dispatch: any) => {
-    const response = await profileAPI.setProfile(userID)
-    dispatch(getUserProfile(response.data))
+export const getProfile = (userID: number) => async (dispatch: any) => {
+    const response = await profileAPI.getProfile(userID)
+    dispatch(actions.getUserProfile(response))
 }
 
 export const getStatus = (userID: number) => async (dispatch: any) => {
     const response = await profileAPI.getStatus(userID)
-    dispatch(setStatus(response))
+    dispatch(actions.setStatus(response))
 }
 
 export const updateStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateStatus(status)
     const responseError = response.data.messages[0]
     if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+        dispatch(actions.setStatus(status))
     } else {
-        dispatch(setStatus(responseError))
+        dispatch(actions.setStatus(responseError))
     }
 }
 
 export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
     let response = await profileAPI.updatePhoto(photo)
     if (response.data.resultCode === 0) {
-        dispatch(setProfilePhoto(response.data.data.photos))
+        dispatch(actions.setProfilePhoto(response.data.data.photos))
     }
 }
 
@@ -121,7 +98,7 @@ export const saveProfile = (profile: ProfileType) => async (dispatch: any, getSt
     const userID = getState().auth.id
     const response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        dispatch(setProfile(userID))
+        dispatch(getProfile(userID))
     } else {
         const errorResponse = response.data.messages.length > 0 ? response.data.messages[0] : ''
         dispatch(stopSubmit('profile', { _error: errorResponse }))

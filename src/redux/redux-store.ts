@@ -7,11 +7,8 @@ import ThunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './app-reducer';
 
-// в rootReducer сидит большой state со своими подчастями
-// ключи - это ветки большого state'а
-
 let rootReducer = combineReducers({
-    profilePage: profileReducer, 
+    profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
@@ -19,8 +16,10 @@ let rootReducer = combineReducers({
     app: appReducer
 })
 
-type RootReducerType = typeof rootReducer
-export type AppStateType = ReturnType<RootReducerType>
+export type AppStateType = ReturnType<typeof rootReducer>
+
+type ACTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...arg: any[]) => any }> = ReturnType<ACTypes<T>>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
