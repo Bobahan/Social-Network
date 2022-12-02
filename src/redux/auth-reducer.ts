@@ -4,7 +4,6 @@ import { stopSubmit } from 'redux-form';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { authAPI, ResultCodesEnum, ResultCodesForCaptchaEnum, securityAPI } from "../API/API";
 
-
 let initialState = {
     email: null as string | null,
     id: null as number | null,
@@ -12,12 +11,11 @@ let initialState = {
     isAuth: false,
     captcha: null as string | null
 }
-
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 const actions = {
-    setUserDataActionCreator: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({ type: 'SET_USER_DATA', payload: { email, id, login, isAuth } }),
-    getCapchaURLSuccess: (captcha: string) => ({ type: 'GET_CAPTCHA_URL', payload: { captcha } })
+    setUserDataActionCreator: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({ type: 'SET_USER_DATA', payload: { email, id, login, isAuth }} as const),
+    getCapchaURLSuccess: (captcha: string) => ({ type: 'GET_CAPTCHA_URL', payload: { captcha }} as const)
 }
 type ActionTypes = InferActionsType<typeof actions>
 

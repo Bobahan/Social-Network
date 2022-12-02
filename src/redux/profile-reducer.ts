@@ -3,12 +3,6 @@ import { profileAPI } from "../API/API";
 import { PhotosType, ProfileType } from "../types/types";
 import { InferActionsType } from "./redux-store";
 
-const ADD_POST = 'profile/ADD_POST';
-const SET_PROFILE = 'profile/SET_PROFILE';
-const SET_STATUS = 'profile/SET_STATUS';
-const SAVE_PHOTO = 'profile/SAVE_PHOTO';
-const DELETE_POST = 'profile/DELETE-POST';
-
 type PostType = {
     id: number
     message: string
@@ -23,41 +17,40 @@ let initialState = {
     profile: null as ProfileType | null,
     status: null as string | null,
 }
-
 type InitialStateType = typeof initialState
 
 const actions = {
-    addPostActionCreator: (post: string) => ({ type: ADD_POST, post } as const),
-    getUserProfile: (profile: ProfileType) => ({ type: SET_PROFILE, profile } as const),
-    setStatus: (status: string) => ({ type: SET_STATUS, status } as const),
-    deletePost: (postID: number) => ({ type: DELETE_POST, postID } as const),
-    setProfilePhoto: (photo: PhotosType) => ({ type: SAVE_PHOTO, photo } as const),
+    addPostActionCreator: (post: string) => ({ type: 'ADD_POST', post } as const),
+    getUserProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
+    setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
+    deletePost: (postID: number) => ({ type: 'DELETE_POST', postID } as const),
+    setProfilePhoto: (photo: PhotosType) => ({ type: 'SAVE_PHOTO', photo } as const),
 }
 type ActionsType = InferActionsType<typeof actions>
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD_POST':
             return {
                 ...state,
                 posts: [...state.posts, { id: 4, message: action.post }]
             }
-        case SET_PROFILE:
+        case 'SET_PROFILE':
             return {
                 ...state,
                 profile: action.profile
             }
-        case SET_STATUS:
+        case 'SET_STATUS':
             return {
                 ...state,
                 status: action.status
             }
-        case DELETE_POST:
+        case 'DELETE_POST':
             return {
                 ...state,
                 posts: state.posts.filter(p => p.id !== action.postID)
             }
-        case SAVE_PHOTO:
+        case 'SAVE_PHOTO':
             return {
                 ...state,
                 profile: { ...state.profile, photos: action.photo } as ProfileType
