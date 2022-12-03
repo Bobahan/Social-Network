@@ -19,14 +19,14 @@ let initialState = {
 }
 type InitialStateType = typeof initialState
 
-const actions = {
+export const actionsProfile = {
     addPostActionCreator: (post: string) => ({ type: 'ADD_POST', post } as const),
     getUserProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
     deletePost: (postID: number) => ({ type: 'DELETE_POST', postID } as const),
     setProfilePhoto: (photo: PhotosType) => ({ type: 'SAVE_PHOTO', photo } as const),
 }
-type ActionsType = InferActionsType<typeof actions>
+type ActionsType = InferActionsType<typeof actionsProfile>
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -62,28 +62,28 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
 
 export const getProfile = (userID: number) => async (dispatch: any) => {
     const response = await profileAPI.getProfile(userID)
-    dispatch(actions.getUserProfile(response))
+    dispatch(actionsProfile.getUserProfile(response))
 }
 
 export const getStatus = (userID: number) => async (dispatch: any) => {
     const response = await profileAPI.getStatus(userID)
-    dispatch(actions.setStatus(response))
+    dispatch(actionsProfile.setStatus(response))
 }
 
 export const updateStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateStatus(status)
     const responseError = response.data.messages[0]
     if (response.data.resultCode === 0) {
-        dispatch(actions.setStatus(status))
+        dispatch(actionsProfile.setStatus(status))
     } else {
-        dispatch(actions.setStatus(responseError))
+        dispatch(actionsProfile.setStatus(responseError))
     }
 }
 
 export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
     let response = await profileAPI.updatePhoto(photo)
     if (response.data.resultCode === 0) {
-        dispatch(actions.setProfilePhoto(response.data.data.photos))
+        dispatch(actionsProfile.setProfilePhoto(response.data.data.photos))
     }
 }
 

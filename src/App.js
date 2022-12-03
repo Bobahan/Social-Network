@@ -6,13 +6,13 @@ import UsersContainer from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
 import { connect } from 'react-redux';
-// import {actions as initializedSuccess} from './redux/app-reducer'
 import { withRouter } from './Components/HOC/withRouter';
 import { compose } from 'redux';
 import Preloader from './Components/Common/Preloader/Preloader';
 import store from './redux/redux-store';
 import { Provider } from 'react-redux';
 import { withSuspense } from './Components/HOC/withSuspense';
+import { actionsApp } from './redux/app-reducer';
 
 const DialogsContainer = withSuspense(React.lazy(() => import('./Components/Dialogs/DialogsContainer')));
 const ProfileContainer = withSuspense(React.lazy(() => import('./Components/Profile/ProfileContainer')));
@@ -53,9 +53,17 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initializeApp: () => {
+      dispatch(actionsApp.initializedSuccess())
+    }
+  }
+}
+
 const AppContainer = compose(
   withRouter,
-  connect(mapStateToProps, { initializeApp })
+  connect(mapStateToProps, mapDispatchToProps)
 )(App)
 
 export const MainApp = () => {

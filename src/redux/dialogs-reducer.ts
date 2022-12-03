@@ -18,12 +18,12 @@ let initialState = {
 }
 type initialStateType = typeof initialState
 
-const actions = {
+export const actionsDialogs = {
     addMessage: (message: string) => ({ type: 'ADD_MESSAGE', message })
 }
-type ActionsType = InferActionsType<typeof actions>
+type ActionsType = InferActionsType<typeof actionsDialogs>
 
-export const dialogsReducer = (state = initialState, action: any): initialStateType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case 'ADD_MESSAGE':
             return {

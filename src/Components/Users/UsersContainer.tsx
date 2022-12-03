@@ -1,28 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { changePage, isFollowingProgress, follow, unfollow, getUsersTC } from "../../redux/users-reducer";
 import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
-
-type MapStatePropsType = {
-    users: Array<UsersType>
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: Array<number>
-}
-
-type MapDispatchPropsType = {
-    changePage: (page: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    isFollowingProgress: (isDisabling: boolean, userID: number) => void
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-}
+import { actionsUsers, follow, getUsersTC, unfollow } from "../../redux/users-reducer";
 
 type TOwnProps = {}
 
@@ -58,6 +41,23 @@ class UsersContainer extends React.Component<PropsType> {
     }
 }
 
+type MapStatePropsType = {
+    users: Array<UsersType>
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+    changePage: (page: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    isFollowingProgress: (isDisabling: boolean, userID: number) => void
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+}
+
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
@@ -72,13 +72,13 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 let mapDispatchToProps = (dispatch: any): MapDispatchPropsType => {
     return {
         changePage: (currentPage: number) => {
-            dispatch(changePage(currentPage))
+            dispatch(actionsUsers.changePage(currentPage))
         },
         getUsers: (page: number, pageSize: number) => {
             dispatch(getUsersTC(page, pageSize))
         },
         isFollowingProgress: (isDisabling: boolean, userID: number) => {
-            dispatch(isFollowingProgress(isDisabling, userID))
+            dispatch(actionsUsers.isFollowingProgress(isDisabling, userID))
         },
         follow: (userID: number) => {
             dispatch(follow(userID))

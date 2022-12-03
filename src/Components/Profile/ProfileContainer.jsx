@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
-import { getStatus, saveProfile, getProfile, updatePhoto, updateStatus } from "../../redux/profile-reducer";
+import { getStatus, saveProfile, getProfile, updatePhoto, updateStatus, actionsProfile } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import Profile from "./Profile";
-
 class ProfileContainer extends React.Component {
     updateProfile() {
         let userID = this.props.router.params.userId

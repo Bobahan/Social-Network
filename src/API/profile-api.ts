@@ -1,5 +1,5 @@
 import { ProfileType } from "../types/types"
-import { instance } from "./API"
+import { instance, ResponseType } from "./API"
 
 export const profileAPI = {
     getProfile: (userID: number) => {
@@ -10,7 +10,7 @@ export const profileAPI = {
         return response.data
     },
     updateStatus: (status: string) => {
-        return instance.put('profile/status/', { status: status })
+        return instance.put<ResponseType>('profile/status/', { status: status })
     },
     updatePhoto: (photo: any) => {
         let formData = new FormData()

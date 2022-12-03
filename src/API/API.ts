@@ -24,9 +24,8 @@ export type GetItemsType = {
     error: string | null
 }
 
-
-export type GenericType<T> = {
-    data: T
-    resultCode: ResultCodesEnum | ResultCodesForCaptchaEnum
+export type ResponseType<D = {}, C = ResultCodesEnum> = {
+    data: D
+    resultCode: C
     messages: Array<string>
 }

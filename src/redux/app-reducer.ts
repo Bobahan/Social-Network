@@ -7,10 +7,10 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-export const actions = {
+export const actionsApp = {
     initializedSuccess: () => ({ type: 'INITIALIZED_SUCCESS' } as const)
 }
-type ActionTypes = InferActionsType<typeof actions>
+type ActionTypes = InferActionsType<typeof actionsApp>
 
 export const appReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
@@ -28,6 +28,6 @@ export const initializeApp = () => (dispatch: any) => {
     let promise = dispatch(authentication())
     Promise.all([promise])
         .then(() => {
-            dispatch(actions.initializedSuccess())
+            dispatch(actionsApp.initializedSuccess())
         })
 }

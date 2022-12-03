@@ -1,6 +1,6 @@
 import React from "react"
 import Post from "./Post/Post"
-import { addPostActionCreator } from "../../../redux/profile-reducer"
+import { actionsProfile } from "../../../redux/profile-reducer"
 import { connect } from "react-redux"
 import MyPostsForm from "./MyPostsForm"
 import { reduxForm } from "redux-form"
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addPost: (post) => {
-            dispatch(addPostActionCreator(post))
+            dispatch(actionsProfile.addPostActionCreator(post))
         }
     }
 }

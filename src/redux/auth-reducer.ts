@@ -16,11 +16,11 @@ let initialState = {
 }
 type InitialStateType = typeof initialState
 
-const actions = {
+export const actionsAuth = {
     setUserDataActionCreator: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({ type: 'SET_USER_DATA', payload: { email, id, login, isAuth } } as const),
     getCapchaURLSuccess: (captcha: string) => ({ type: 'GET_CAPTCHA_URL', payload: { captcha } } as const)
 }
-type ActionTypes = InferActionsType<typeof actions>
+type ActionTypes = InferActionsType<typeof actionsAuth>
 
 export const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
@@ -46,7 +46,7 @@ export const authentication = (): ThunkType => async (dispatch: DispatchActionTy
     const response = await authAPI.authMe()
     if (response.resultCode === ResultCodesEnum.Success) {
         const { email, id, login } = response.data
-        dispatch(actions.setUserDataActionCreator(email, id, login, true))
+        dispatch(actionsAuth.setUserDataActionCreator(email, id, login, true))
     }
 }
 
@@ -66,12 +66,12 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const logout = () => async (dispatch: any) => {
     const response = await authAPI.logout()
     if (response.resultCode === ResultCodesEnum.Success) {
-        dispatch(actions.setUserDataActionCreator(null, null, null, false))
+        dispatch(actionsAuth.setUserDataActionCreator(null, null, null, false))
     }
 }
 
 export const getCapchaURL = () => async (dispatch: any) => {
     const response = await securityAPI.getCapcha()
     const captchaURL = response.url
-    dispatch(actions.getCapchaURLSuccess(captchaURL))
+    dispatch(actionsAuth.getCapchaURLSuccess(captchaURL))
 }
