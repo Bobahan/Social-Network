@@ -72,8 +72,8 @@ export const getStatus = (userID: number) => async (dispatch: any) => {
 
 export const updateStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateStatus(status)
-    const responseError = response.data.messages[0]
-    if (response.data.resultCode === 0) {
+    const responseError = response.messages[0]
+    if (response.resultCode === 0) {
         dispatch(actionsProfile.setStatus(status))
     } else {
         dispatch(actionsProfile.setStatus(responseError))
@@ -82,19 +82,19 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 
 export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
     let response = await profileAPI.updatePhoto(photo)
-    if (response.data.resultCode === 0) {
-        dispatch(actionsProfile.setProfilePhoto(response.data.data.photos))
+    if (response.resultCode === 0) {
+        dispatch(actionsProfile.setProfilePhoto(response.data.photos))
     }
 }
 
 export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
     const userID = getState().auth.id
     const response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
         dispatch(getProfile(userID))
     } else {
-        const errorResponse = response.data.messages.length > 0 ? response.data.messages[0] : ''
+        const errorResponse = response.messages.length > 0 ? response.messages[0] : ''
         dispatch(stopSubmit('profile', { _error: errorResponse }))
-        return Promise.reject(response.data.messages[0])
+        return Promise.reject(response.messages[0])
     }
 }

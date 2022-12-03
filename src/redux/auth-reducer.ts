@@ -1,11 +1,9 @@
-import { AppStateType, InferActionsType } from './redux-store';
-import { Dispatch } from 'redux';
+import { AppStateType, DispatchActionType, InferActionsType, ThunkType } from './redux-store';
 import { stopSubmit } from 'redux-form';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { ThunkDispatch } from 'redux-thunk';
 import { securityAPI } from '../API/security-api';
 import { authAPI } from '../API/auth-api';
 import { ResultCodesEnum, ResultCodesForCaptchaEnum } from '../API/API';
-
 
 let initialState = {
     email: null as string | null,
@@ -39,10 +37,7 @@ export const authReducer = (state = initialState, action: ActionTypes): InitialS
     }
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
-type DispatchActionType = Dispatch<ActionTypes>
-
-export const authentication = (): ThunkType => async (dispatch: DispatchActionType) => {
+export const authentication = (): ThunkType<ActionTypes> => async (dispatch: DispatchActionType<ActionTypes>) => {
     const response = await authAPI.authMe()
     if (response.resultCode === ResultCodesEnum.Success) {
         const { email, id, login } = response.data
@@ -50,7 +45,7 @@ export const authentication = (): ThunkType => async (dispatch: DispatchActionTy
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch: ThunkDispatch<AppStateType, unknown, ActionTypes>) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType<ActionTypes | ReturnType<typeof stopSubmit>> => async (dispatch) => {
     const response = await authAPI.login(email, password, rememberMe, captcha)
     if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(authentication())
@@ -59,11 +54,11 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             dispatch(getCapchaURL())
         }
         const errorResponse = response.messages.length > 0 ? response.messages[0] : ''
-        // dispatch(stopSubmit('login', { _error: errorResponse }))
+        dispatch(stopSubmit('login', { _error: errorResponse }))
     }
 }
 
-export const logout = () => async (dispatch: any) => {
+export const logout = (): ThunkType<ActionTypes> => async (dispatch: any) => {
     const response = await authAPI.logout()
     if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsAuth.setUserDataActionCreator(null, null, null, false))

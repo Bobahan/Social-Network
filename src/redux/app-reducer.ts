@@ -4,7 +4,6 @@ import { authentication } from "./auth-reducer";
 let initialState = {
     initialized: false,
 }
-
 type InitialStateType = typeof initialState
 
 export const actionsApp = {
