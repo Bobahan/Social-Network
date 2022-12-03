@@ -16,6 +16,8 @@ type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
+type OwnProps = {}
+
 export type LoginFormType = {
     email: string
     password: string
@@ -26,6 +28,7 @@ export type LoginFormType = {
 export type LoginFormOwnProps = {
     captcha: string | null
 }
+
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: LoginFormType) => {
@@ -56,4 +59,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm)
-export default connect(mapStateToProps, { login })(Login)
+export default connect<MapStatePropsType, MapDispatchPropsType, OwnProps, AppStateType>(mapStateToProps, { login })(Login)

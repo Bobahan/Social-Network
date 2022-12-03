@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter } from './Components/HOC/withRouter';
 import { compose } from 'redux';
 import Preloader from './Components/Common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store, { AppStateType } from './redux/redux-store';
 import { Provider } from 'react-redux';
 import { withSuspense } from './Components/HOC/withSuspense';
 import { actionsApp } from './redux/app-reducer';
@@ -17,7 +17,7 @@ import { actionsApp } from './redux/app-reducer';
 const DialogsContainer = withSuspense(React.lazy(() => import('./Components/Dialogs/DialogsContainer')));
 const ProfileContainer = withSuspense(React.lazy(() => import('./Components/Profile/ProfileContainer')));
 
-class App extends React.Component {
+class App extends React.Component<MapStateToPropsType & MapDispatchToProps> {
   componentDidMount() {
     this.props.initializeApp()
   }
@@ -32,7 +32,7 @@ class App extends React.Component {
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
-            <Route exact path='/' element={<Navigate to={'/profile'} />} />
+            <Route path='/' element={<Navigate to={'/profile'} />} />
             <Route path='/profile' element={<ProfileContainer />}>
               <Route path=':userId' element={<ProfileContainer />} />
             </Route>
@@ -47,26 +47,22 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+type MapStateToPropsType = { initialized: boolean }
+type MapDispatchToProps = { initializeApp: () => void }
+type OwnProps = {}
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    initializeApp: () => {
-      dispatch(actionsApp.initializedSuccess())
-    }
-  }
-}
-
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect<MapStateToPropsType, MapDispatchToProps, OwnProps, AppStateType>(mapStateToProps, { initializeApp: actionsApp.initializeApp })
 )(App)
 
-export const MainApp = () => {
+export const MainApp: React.FC = () => {
   return (
     <BrowserRouter >
       <Provider store={store}>

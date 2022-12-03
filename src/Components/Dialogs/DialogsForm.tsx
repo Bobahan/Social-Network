@@ -1,12 +1,15 @@
 import React from "react"
-import { Field } from "redux-form"
+import { Field, InjectedFormProps } from "redux-form"
 import { required, maxLength } from "../../utilities/validators"
 import { FormControlDiv } from "../Common/FormController/FormControl"
+import { DialogsFormType } from "./Dialogs"
 
 const maxLength50 = maxLength(30)
 const Textarea = FormControlDiv('textarea')
 
-const DialogsForm = (props) => {
+type OwnProps = {}
+
+const DialogsForm: React.FC<InjectedFormProps<DialogsFormType, OwnProps> & OwnProps> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

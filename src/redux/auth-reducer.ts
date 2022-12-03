@@ -1,6 +1,5 @@
-import { AppStateType, DispatchActionType, InferActionsType, ThunkType } from './redux-store';
+import { InferActionsType, ThunkType } from './redux-store';
 import { stopSubmit } from 'redux-form';
-import { ThunkDispatch } from 'redux-thunk';
 import { securityAPI } from '../API/security-api';
 import { authAPI } from '../API/auth-api';
 import { ResultCodesEnum, ResultCodesForCaptchaEnum } from '../API/API';
@@ -37,7 +36,7 @@ export const authReducer = (state = initialState, action: ActionTypes): InitialS
     }
 }
 
-export const authentication = (): ThunkType<ActionTypes> => async (dispatch: DispatchActionType<ActionTypes>) => {
+export const authentication = (): ThunkType<ActionTypes> => async (dispatch) => {
     const response = await authAPI.authMe()
     if (response.resultCode === ResultCodesEnum.Success) {
         const { email, id, login } = response.data

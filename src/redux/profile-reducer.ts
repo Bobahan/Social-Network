@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form";
 import { profileAPI } from "../API/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
-import { InferActionsType } from "./redux-store";
+import { InferActionsType, ThunkType } from "./redux-store";
 
 type PostType = {
     id: number
@@ -60,17 +60,17 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
     }
 }
 
-export const getProfile = (userID: number) => async (dispatch: any) => {
+export const getProfile = (userID: number): ThunkType<ActionsType> => async (dispatch) => {
     const response = await profileAPI.getProfile(userID)
     dispatch(actionsProfile.getUserProfile(response))
 }
 
-export const getStatus = (userID: number) => async (dispatch: any) => {
+export const getStatus = (userID: number): ThunkType<ActionsType> => async (dispatch) => {
     const response = await profileAPI.getStatus(userID)
     dispatch(actionsProfile.setStatus(response))
 }
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType<ActionsType> => async (dispatch) => {
     const response = await profileAPI.updateStatus(status)
     const responseError = response.messages[0]
     if (response.resultCode === 0) {
@@ -80,18 +80,22 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
     }
 }
 
-export const updatePhoto = (photo: PhotosType) => async (dispatch: any) => {
+export const updatePhoto = (photo: PhotosType): ThunkType<ActionsType> => async (dispatch) => {
     let response = await profileAPI.updatePhoto(photo)
     if (response.resultCode === 0) {
         dispatch(actionsProfile.setProfilePhoto(response.data.photos))
     }
 }
 
-export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: ProfileType): ThunkType<ActionsType | ReturnType<typeof stopSubmit>> => async (dispatch, getState) => {
     const userID = getState().auth.id
     const response = await profileAPI.saveProfile(profile)
     if (response.resultCode === 0) {
-        dispatch(getProfile(userID))
+        if (userID !== null) {
+            dispatch(getProfile(userID))
+        } else {
+            throw new Error('userID cannot be null')
+        }
     } else {
         const errorResponse = response.messages.length > 0 ? response.messages[0] : ''
         dispatch(stopSubmit('profile', { _error: errorResponse }))
