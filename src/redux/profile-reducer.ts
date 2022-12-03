@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import { profileAPI } from "../API/API";
+import { profileAPI } from "../API/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
 import { InferActionsType } from "./redux-store";
 

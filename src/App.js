@@ -6,7 +6,7 @@ import UsersContainer from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
 import { connect } from 'react-redux';
-import { initializeApp } from './redux/app-reducer';
+// import {actions as initializedSuccess} from './redux/app-reducer'
 import { withRouter } from './Components/HOC/withRouter';
 import { compose } from 'redux';
 import Preloader from './Components/Common/Preloader/Preloader';

@@ -7,7 +7,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const actions = {
+export const actions = {
     initializedSuccess: () => ({ type: 'INITIALIZED_SUCCESS' } as const)
 }
 type ActionTypes = InferActionsType<typeof actions>
