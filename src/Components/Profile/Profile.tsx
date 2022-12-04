@@ -2,7 +2,7 @@ import React from "react"
 import MyPostsContainer from "./MyPosts/MyPostsContainer"
 import ProfileInfo from "./ProfileInfo/Info/ProfileInfo"
 
-const Profile = (props) => {
+const Profile = (props: any) => {
     return (
         <div>
             <ProfileInfo

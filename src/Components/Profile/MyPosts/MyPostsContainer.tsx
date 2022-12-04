@@ -38,6 +38,6 @@ type MapDispatchToPropsType = { addPost: (post: string) => void }
 type OwnProps = {}
 export type DataType = { post: string }
 
-let PostReduxForm = reduxForm<DataType>({ form: 'post' })(MyPostsForm)
 
+let PostReduxForm = reduxForm<DataType>({ form: 'post' })(MyPostsForm)
 export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, { addPost: actionsProfile.addPost })(React.memo(MyPosts))

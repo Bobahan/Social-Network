@@ -13,7 +13,7 @@ let state = {
 
 test('length of posts should be incremented', () => {
     // test data
-    let action = actionsProfile.addPostActionCreator('it-kamasutra.com')
+    let action = actionsProfile.addPost('it-kamasutra.com')
 
     // action
     let newState = profileReducer(state, action)
@@ -24,7 +24,7 @@ test('length of posts should be incremented', () => {
 
 test('message of new post should be correct', () => {
     // test data
-    let action = actionsProfile.addPostActionCreator('it-kamasutra.com')
+    let action = actionsProfile.addPost('it-kamasutra.com')
 
     // action
     let newState = profileReducer(state, action)

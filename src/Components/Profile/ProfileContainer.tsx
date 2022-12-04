@@ -4,11 +4,14 @@ import { withRouter } from "../HOC/withRouter";
 import { getStatus, saveProfile, getProfile, updatePhoto, updateStatus } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
-import Profile from "./Profile.tsx";
+import Profile from "./Profile";
 import { PhotosType, ProfileType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
+import { useParams } from 'react-router-dom';
 
-class ProfileContainer extends React.Component<MapStateToPropsType, MapDispatchToPropsType> {
+type PathParamsType = { router: any }
+
+class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType & PathParamsType> {
     updateProfile() {
         let userID = this.props.router.params.userId
         if (!userID) {
@@ -22,7 +25,7 @@ class ProfileContainer extends React.Component<MapStateToPropsType, MapDispatchT
         this.updateProfile()
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: any) {
         if (prevProps.router.params.userId !== this.props.router.params.userId) { // 5 !== 6 // if (true)
             this.updateProfile()
         }
@@ -45,9 +48,9 @@ class ProfileContainer extends React.Component<MapStateToPropsType, MapDispatchT
 }
 
 type MapStateToPropsType = {
-    profile: ProfileType
-    status: string
-    authorizedID: number
+    profile: ProfileType | null
+    status: string | null
+    authorizedID: number | null
     isAuth: boolean
 }
 
