@@ -14,9 +14,8 @@ import { Provider } from 'react-redux';
 import { withSuspense } from './Components/HOC/withSuspense';
 import { actionsApp } from './redux/app-reducer';
 
-const DialogsContainer = withSuspense(React.lazy(() => import('./Components/Dialogs/DialogsContainer')));
+const DialogsContainer = withSuspense(React.lazy(() => import('./Components/Dialogs/DialogsContainer')))
 const ProfileContainer = withSuspense(React.lazy(() => import('./Components/Profile/ProfileContainer')));
-
 class App extends React.Component<MapStateToPropsType & MapDispatchToProps> {
   componentDidMount() {
     this.props.initializeApp()
