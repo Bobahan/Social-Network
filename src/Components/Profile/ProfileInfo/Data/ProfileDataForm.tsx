@@ -1,12 +1,17 @@
 import React from "react"
-import { Field, reduxForm } from "redux-form"
+import { Field, InjectedFormProps, reduxForm } from "redux-form"
+import { ProfileType } from "../../../../types/types"
 import { FormControlSpan } from "../../../Common/FormController/FormControl"
 import styles from '../../../Common/FormController/FormControl.module.css'
 
 const Input = FormControlSpan('input')
 const Textarea = FormControlSpan('textarea')
 
-const ProfileDataForm = ({ handleSubmit, error, profile }) => {
+type ProfileDataFormType = {
+    profile: ProfileType
+}
+
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, ProfileDataFormType> & ProfileDataFormType> = ({ handleSubmit, error, profile }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div style={{ 'marginTop': '10px' }}><button>Save</button></div>
@@ -42,5 +47,4 @@ const ProfileDataForm = ({ handleSubmit, error, profile }) => {
     )
 }
 
-const ProfileDataReduxForm = reduxForm({ form: 'profile' })(ProfileDataForm)
-export default ProfileDataReduxForm
+export default reduxForm<ProfileType, ProfileDataFormType>({ form: 'profile' })(ProfileDataForm)

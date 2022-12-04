@@ -5,22 +5,31 @@ import userPhoto from '../../../../assets/userImg.png'
 import ProfileData from "../Data/ProfileData"
 import ProfileStatusWithHooks from "../Status/ProfileStatusWithHook"
 import ProfileDataReduxForm from "../Data/ProfileDataForm"
+import { ProfileType } from "../../../../types/types"
 
-const ProfileInfo = (props) => {
+type ProfileInfoType = {
+    profile: ProfileType
+    isOwner: boolean
+    status: string
+    updateStatus: (status: string) => void
+    updatePhoto: (photo: File) => void
+    saveProfile: (profile: ProfileType) => void
+}
+
+const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
     const [editMode, setEditMode] = useState(false)
 
     const activateEditMode = () => {
         setEditMode(true)
     }
 
-    const onSelectedPhoto = (event) => {
-        if (event.target.files.length) {
+    const onSelectedPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files?.length) {
             props.updatePhoto(event.target.files[0])
         }
     }
 
-    const onSubmit = (formData) => {
-        debugger
+    const onSubmit = (formData: ProfileType) => {
         props.saveProfile(formData)
         setEditMode(false);
     }
@@ -39,7 +48,7 @@ const ProfileInfo = (props) => {
             </label>
             {editMode
                 ? <ProfileDataReduxForm initialValues={props.profile} {...props} onSubmit={onSubmit} />
-                : <ProfileData profile={props.profile} {...props} activateEditMode={activateEditMode} />}
+                : <ProfileData profile={props.profile} isOwner={props.isOwner} activateEditMode={activateEditMode} />}
             <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status} />
         </div>
     )

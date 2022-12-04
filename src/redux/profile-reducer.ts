@@ -3,7 +3,7 @@ import { profileAPI } from "../API/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
 import { InferActionsType, ThunkType } from "./redux-store";
 
-type PostType = {
+export type PostType = {
     id: number
     message: string
 }
@@ -20,7 +20,7 @@ let initialState = {
 type InitialStateType = typeof initialState
 
 export const actionsProfile = {
-    addPostActionCreator: (post: string) => ({ type: 'ADD_POST', post } as const),
+    addPost: (post: string) => ({ type: 'ADD_POST', post } as const),
     getUserProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
     deletePost: (postID: number) => ({ type: 'DELETE_POST', postID } as const),

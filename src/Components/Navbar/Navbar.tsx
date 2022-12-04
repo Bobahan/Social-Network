@@ -2,7 +2,7 @@ import React from "react";
 import style from './Navbar.module.css'
 import { NavLink } from "react-router-dom";
 
-const LinkActive = ({ isActive }) => {
+const LinkActive = ({ isActive }: { isActive: boolean }) => {
     return isActive ? style.active : style.text
 }
 

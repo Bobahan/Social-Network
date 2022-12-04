@@ -1,11 +1,11 @@
 import React from "react";
 
-const Post = (props) => {
+type PostType = { post: string }
+
+export const Post: React.FC<PostType> = (props) => {
     return (
         <div>
             {props.post}
         </div>
     )
-} 
-
-export default Post
+}
