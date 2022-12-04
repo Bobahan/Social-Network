@@ -1,10 +1,7 @@
 import React from "react";
 import style from './FormControl.module.css';
 
-type FormControlDivType = {
-    input: any
-    meta: any
-}
+type FormControlDivType = { input: any, meta: any }
 
 export const FormControlDiv = (Element: React.FC | string) => ({ input, meta, ...props }: FormControlDivType) => {
     const hasError = meta.touched && meta.error

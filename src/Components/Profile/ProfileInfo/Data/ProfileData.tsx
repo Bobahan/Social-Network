@@ -2,12 +2,6 @@ import React from "react";
 import { ContactsType, ProfileType } from "../../../../types/types";
 import Contacts from "../Contacts/ProfileContacts";
 
-type ProfileDataType = {
-    profile: ProfileType
-    isOwner: boolean
-    activateEditMode: () => void
-}
-
 const ProfileData: React.FC<ProfileDataType> = (props) => {
     return (
         <div style={{ 'marginTop': '10px' }}>
@@ -21,6 +15,12 @@ const ProfileData: React.FC<ProfileDataType> = (props) => {
             })}</span></div>
         </div>
     )
+}
+
+type ProfileDataType = {
+    profile: ProfileType
+    isOwner: boolean
+    activateEditMode: () => void
 }
 
 export default ProfileData

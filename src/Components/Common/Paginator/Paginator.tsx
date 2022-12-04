@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import style from './Paginator.module.css';
 import cn from "classnames"
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChange: (p: number) => void
-    portionSize?: number
-}
-
 const Paginator: React.FC<PropsType> = ({ totalUsersCount, pageSize, currentPage, onPageChange, portionSize = 10 }) => {
     let totalPages = Math.ceil(totalUsersCount / pageSize)
     
@@ -43,6 +35,15 @@ const Paginator: React.FC<PropsType> = ({ totalUsersCount, pageSize, currentPage
             {portionCount > portionNumber && <button style={{ 'padding': '10px' }} onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button>}
         </div>
     )
+}
+
+
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChange: (p: number) => void
+    portionSize?: number
 }
 
 export default Paginator

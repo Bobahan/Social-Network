@@ -7,15 +7,6 @@ import ProfileStatusWithHooks from "../Status/ProfileStatusWithHook"
 import ProfileDataReduxForm from "../Data/ProfileDataForm"
 import { ProfileType } from "../../../../types/types"
 
-type ProfileInfoType = {
-    profile: ProfileType
-    isOwner: boolean
-    status: string
-    updateStatus: (status: string) => void
-    updatePhoto: (photo: File) => void
-    saveProfile: (profile: ProfileType) => void
-}
-
 const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
     const [editMode, setEditMode] = useState(false)
 
@@ -52,6 +43,15 @@ const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
             <ProfileStatusWithHooks updateStatus={props.updateStatus} status={props.status} />
         </div>
     )
+}
+
+type ProfileInfoType = {
+    profile: ProfileType
+    isOwner: boolean
+    status: string
+    updateStatus: (status: string) => void
+    updatePhoto: (photo: File) => void
+    saveProfile: (profile: ProfileType) => void
 }
 
 export default ProfileInfo

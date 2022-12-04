@@ -7,10 +7,6 @@ import styles from '../../../Common/FormController/FormControl.module.css'
 const Input = FormControlSpan('input')
 const Textarea = FormControlSpan('textarea')
 
-type ProfileDataFormType = {
-    profile: ProfileType
-}
-
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, ProfileDataFormType> & ProfileDataFormType> = ({ handleSubmit, error, profile }) => {
     return (
         <form onSubmit={handleSubmit}>
@@ -46,5 +42,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, ProfileDataFormTy
         </form>
     )
 }
+
+type ProfileDataFormType = { profile: ProfileType }
 
 export default reduxForm<ProfileType, ProfileDataFormType>({ form: 'profile' })(ProfileDataForm)

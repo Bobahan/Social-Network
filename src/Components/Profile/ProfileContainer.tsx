@@ -8,9 +8,6 @@ import Profile from "./Profile";
 import { PhotosType, ProfileType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 import { useParams } from 'react-router-dom';
-
-type PathParamsType = { router: any }
-
 class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType & PathParamsType> {
     updateProfile() {
         let userID = this.props.router.params.userId
@@ -47,13 +44,14 @@ class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatch
     }
 }
 
+type PathParamsType = { router: any }
+
 type MapStateToPropsType = {
     profile: ProfileType | null
     status: string | null
     authorizedID: number | null
     isAuth: boolean
 }
-
 
 type MapDispatchToPropsType = {
     getProfile: (userID: number) => void
@@ -62,8 +60,6 @@ type MapDispatchToPropsType = {
     updatePhoto: (photo: PhotosType) => void
     saveProfile: (profile: ProfileType) => void
 }
-
-type OwnProps = {}
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -75,7 +71,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, { getProfile, getStatus, updateStatus, updatePhoto, saveProfile }),
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, { getProfile, getStatus, updateStatus, updatePhoto, saveProfile }),
     withAuthRedirect,
     withRouter,
 )(ProfileContainer)

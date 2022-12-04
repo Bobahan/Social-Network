@@ -3,14 +3,6 @@ import userImg from '../../assets/userImg.png';
 import { NavLink } from "react-router-dom";
 import { UsersType } from "../../types/types";
 
-type UserType = {
-    user: UsersType
-    followingInProgress: Array<number>
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-}
-
-
 const User: React.FC<UserType> = ({ user, followingInProgress, follow, unfollow }) => {
     return (
         <div style={{ 'display': 'flex', 'justifyContent': 'center', 'alignItems': 'center', 'border': '1px solid white', 'borderRadius': '50px', 'margin': '20px' }}>
@@ -30,6 +22,13 @@ const User: React.FC<UserType> = ({ user, followingInProgress, follow, unfollow 
             </div>
         </div>
     )
+}
+
+type UserType = {
+    user: UsersType
+    followingInProgress: Array<number>
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
 }
 
 export default User

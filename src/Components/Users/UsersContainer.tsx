@@ -6,12 +6,7 @@ import Preloader from "../Common/Preloader/Preloader";
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 import { actionsUsers, follow, getUsersTC, unfollow } from "../../redux/users-reducer";
-
-type TOwnProps = {}
-
-type PropsType = MapStatePropsType & MapDispatchPropsType
-
-class UsersContainer extends React.Component<PropsType> {
+class UsersContainer extends React.Component<MapStatePropsType & MapDispatchPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -88,4 +83,4 @@ let mapDispatchToProps = (dispatch: any): MapDispatchPropsType => {
         }
     }
 }
-export default connect<MapStatePropsType, MapDispatchPropsType, TOwnProps, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer)

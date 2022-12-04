@@ -7,29 +7,6 @@ import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
 
-type MapStatePropsType = {
-    isAuth: boolean
-    captcha: string | null
-}
-
-type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-
-type OwnProps = {}
-
-export type LoginFormType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: string
-}
-
-export type LoginFormOwnProps = {
-    captcha: string | null
-}
-
-
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: LoginFormType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
@@ -58,5 +35,10 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
+export type LoginFormType = { email: string, password: string, rememberMe: boolean, captcha: string }
+export type LoginFormOwnProps = { captcha: string | null }
+type MapStatePropsType = { isAuth: boolean, captcha: string | null }
+type MapDispatchPropsType = { login: (email: string, password: string, rememberMe: boolean, captcha: string) => void }
 const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm)
-export default connect<MapStatePropsType, MapDispatchPropsType, OwnProps, AppStateType>(mapStateToProps, { login })(Login)
+
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, { login })(Login)

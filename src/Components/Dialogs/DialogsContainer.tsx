@@ -5,18 +5,6 @@ import { actionsDialogs, initialStateType } from "../../redux/dialogs-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import Dialogs from "./Dialogs";
-
-type DialogsContainerType<S, D> = S & D
-
-type mapStateToProps = {
-    dialogsPage: initialStateType
-}
-
-type mapDispatchToProps = {
-    sendMessage: (message: string) => void
-}
-
-type OwnProps = {}
 class DialogsContainer extends React.Component<DialogsContainerType<mapStateToProps, mapDispatchToProps>> {
     render() {
         return (
@@ -33,7 +21,11 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
+type DialogsContainerType<S, D> = S & D
+type mapStateToProps = { dialogsPage: initialStateType }
+type mapDispatchToProps = { sendMessage: (message: string) => void }
+
 export default compose<React.ComponentType>(
-    connect<mapStateToProps, mapDispatchToProps, OwnProps, AppStateType>(mapStateToProps, { sendMessage: actionsDialogs.sendMessage }),
+    connect<mapStateToProps, mapDispatchToProps, {}, AppStateType>(mapStateToProps, { sendMessage: actionsDialogs.sendMessage }),
     withAuthRedirect
 )(DialogsContainer)

@@ -6,17 +6,6 @@ import s from './Dialogs.module.css';
 import DialogsForm from "./DialogsForm";
 import Message from "./Message/Message";
 
-type PropsType = {
-    dialogsPage: initialStateType
-    sendMessage: (message: string) => void
-}
-
-type OwnProps = {}
-
-export type DialogsFormType = {
-    message: string
-}
-
 const Dialogs: React.FC<PropsType> = (props) => {
     let dialogs = props.dialogsPage.dialogs.map((d, id) => <Dialog key={id} id={d.id} dialog={d.dialog} />)
     let messages = props.dialogsPage.messages.map((m, id) => <Message key={id} message={m.message} />)
@@ -41,6 +30,10 @@ const Dialogs: React.FC<PropsType> = (props) => {
     )
 }
 
-const DialogsReduxForm = reduxForm<DialogsFormType, OwnProps>({ form: 'dialogs' })(DialogsForm)
+
+type PropsType = { dialogsPage: initialStateType, sendMessage: (message: string) => void}
+export type DialogsFormType = {message: string}
+
+const DialogsReduxForm = reduxForm<DialogsFormType,  {}>({ form: 'dialogs' })(DialogsForm)
 
 export default Dialogs

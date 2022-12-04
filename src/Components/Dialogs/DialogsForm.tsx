@@ -7,9 +7,7 @@ import { DialogsFormType } from "./Dialogs"
 const maxLength50 = maxLength(30)
 const Textarea = FormControlDiv('textarea')
 
-type OwnProps = {}
-
-const DialogsForm: React.FC<InjectedFormProps<DialogsFormType, OwnProps> & OwnProps> = (props) => {
+const DialogsForm: React.FC<InjectedFormProps<DialogsFormType, {}> & {}> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

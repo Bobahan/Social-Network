@@ -2,10 +2,6 @@ import { PhotosType } from './../types/types';
 import { ProfileType } from "../types/types"
 import { instance, ResponseType } from "./API"
 
-type SavePhotoResponseType = {
-    photos: PhotosType
-}
-
 export const profileAPI = {
     getProfile: (userID: number) => {
         return instance.get<ProfileType>(`profile/${userID}`).then(res => res.data)
@@ -29,3 +25,5 @@ export const profileAPI = {
         return await instance.put<ResponseType>('profile', profile).then(res => res.data)
     }
 }
+
+type SavePhotoResponseType = { photos: PhotosType }

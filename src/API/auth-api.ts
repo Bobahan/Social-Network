@@ -1,8 +1,5 @@
 import { instance, ResponseType, ResultCodesEnum, ResultCodesForCaptchaEnum } from "./API"
 
-type AuthMeType = { id: number, email: string, login: string }
-type LoginType = { userId: number }
-
 export const authAPI = {
     authMe: async () => {
         return await instance.get<ResponseType<AuthMeType, ResultCodesEnum>>(`auth/me`).then(res => res.data)
@@ -14,3 +11,6 @@ export const authAPI = {
         return await instance.delete<ResponseType>(`auth/login`).then(res => res.data)
     }
 }
+
+type AuthMeType = { id: number, email: string, login: string }
+type LoginType = { userId: number }

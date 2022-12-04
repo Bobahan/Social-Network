@@ -1,7 +1,5 @@
 import React from "react"
 
-type ContactsType = { contactKey: string, contactValue: string }
-
 const Contacts: React.FC<ContactsType> = ({ contactKey, contactValue }) => {
     return (
         <ul style={{ 'margin': '0' }}>
@@ -9,5 +7,7 @@ const Contacts: React.FC<ContactsType> = ({ contactKey, contactValue }) => {
         </ul>
     )
 }
+
+type ContactsType = { contactKey: string, contactValue: string }
 
 export default Contacts
