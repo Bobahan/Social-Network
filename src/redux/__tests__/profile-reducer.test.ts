@@ -13,7 +13,7 @@ let state = {
 
 test('length of posts should be incremented', () => {
     // test data
-    let action = actionsProfile.addPost('it-kamasutra.com')
+    let action = actionsProfile.addPost('IT')
 
     // action
     let newState = profileReducer(state, action)
@@ -24,13 +24,13 @@ test('length of posts should be incremented', () => {
 
 test('message of new post should be correct', () => {
     // test data
-    let action = actionsProfile.addPost('it-kamasutra.com')
+    let action = actionsProfile.addPost('IT')
 
     // action
     let newState = profileReducer(state, action)
 
     // expectation
-    expect(newState.posts[3].message).toBe('it-kamasutra.com')
+    expect(newState.posts[3].message).toBe('IT')
 });
 
 test('after deleting length of messages should be decrement', () => {

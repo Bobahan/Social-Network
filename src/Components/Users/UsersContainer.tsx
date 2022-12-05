@@ -36,23 +36,6 @@ class UsersContainer extends React.Component<MapStatePropsType & MapDispatchProp
     }
 }
 
-type MapStatePropsType = {
-    users: Array<UsersType>
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: Array<number>
-}
-
-type MapDispatchPropsType = {
-    changePage: (page: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    isFollowingProgress: (isDisabling: boolean, userID: number) => void
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-}
-
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
@@ -83,4 +66,22 @@ let mapDispatchToProps = (dispatch: any): MapDispatchPropsType => {
         }
     }
 }
+
+type MapStatePropsType = {
+    users: Array<UsersType>
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+    changePage: (page: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    isFollowingProgress: (isDisabling: boolean, userID: number) => void
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+}
+
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer)
