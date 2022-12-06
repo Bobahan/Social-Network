@@ -1,8 +1,8 @@
-import React from "react"
-import { Field, InjectedFormProps } from "redux-form"
-import { required, maxLength } from "../../utilities/validators"
-import { FormControlDiv } from "../Common/FormController/FormControl"
-import { DialogsFormType } from "./Dialogs"
+import React from "react";
+import { Field, InjectedFormProps } from "redux-form";
+import { required, maxLength } from "../../utilities/validators";
+import { FormControlDiv } from "../Common/FormController/FormControl";
+import { DialogsFormType } from "./Dialogs";
 
 const maxLength50 = maxLength(30)
 const Textarea = FormControlDiv('textarea')

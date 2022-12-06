@@ -1,7 +1,6 @@
 import { UsersType } from './../types/types';
 import { Dispatch } from 'redux';
-import { AppStateType, InferActionsType, ThunkType } from './redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { InferActionsType, ThunkType } from './redux-store';
 import { usersAPI } from '../API/users-api';
 import { ResponseType } from '../API/API';
 
@@ -11,9 +10,13 @@ let initialState = {
     pageSize: 5 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,
-    followingInProgress: [] as Array<number> // array of users ids
+    followingInProgress: [] as Array<number>, // array of users ids
+    filter: {
+        term: ''
+    }
 }
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 
 export const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
@@ -64,6 +67,11 @@ export const usersReducer = (state = initialState, action: ActionTypes): Initial
                     ? [...state.followingInProgress, action.userID]
                     : state.followingInProgress.filter(id => id !== action.userID)
             }
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.payload
+            }
         default:
             return state
     }
@@ -76,13 +84,17 @@ export const actionsUsers = {
     changePage: (currentPage: number) => ({ type: 'CHANGE_PAGE', currentPage } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({ type: 'SET_TOTAL_USERS_COUNT', totalUsersCount } as const),
     toogleIsFetching: (isFetching: boolean) => ({ type: 'IS_FETCHING', isFetching } as const),
-    isFollowingProgress: (isDisabling: boolean, userID: number) => ({ type: 'IS_FOLLOWING', isDisabling, userID } as const)
+    isFollowingProgress: (isDisabling: boolean, userID: number) => ({ type: 'IS_FOLLOWING', isDisabling, userID } as const),
+    setFilter: (term: string) => ({ type: 'SET_FILTER', payload: { term } } as const)
 }
 type ActionTypes = InferActionsType<typeof actionsUsers>
 
-export const getUsersTC = (page: number, pageSize: number): ThunkType<ActionTypes> => async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number, term: string): ThunkType<ActionTypes> => async (dispatch) => {
     dispatch(actionsUsers.toogleIsFetching(true))
-    let response = await usersAPI.getUsers(page, pageSize)
+    dispatch(actionsUsers.changePage(page))
+    dispatch(actionsUsers.setFilter(term))
+
+    let response = await usersAPI.getUsers(page, pageSize, term)
     dispatch(actionsUsers.toogleIsFetching(false))
     dispatch(actionsUsers.setUsers(response.items))
     dispatch(actionsUsers.setTotalUsersCount(response.totalCount))

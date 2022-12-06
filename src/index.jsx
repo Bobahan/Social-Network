@@ -32,3 +32,40 @@ const getMiddle = (s) => {
     return s.length % 2 === 0 ? s.slice(middle - 1, middle + 1) : s.slice(middle, middle + 1)
 }
 
+const finishedHomework = () => {
+    console.log('2. Finished my homework')
+}
+
+const doHomework = (subject, fn) => {
+    console.log(`1. I am doing my ${subject}`)
+    fn()
+}
+
+doHomework('math', finishedHomework)
+
+
+// функция высшего порядка
+// замыкание
+// колбэк
+// setTimeout
+// clearTimeout
+// контекст вызова this
+
+// сохранять значение между вызовами. только innerWrapper будет доступно свое замыкание 
+
+let array = [
+    { id: 1, name: 'Alex' },
+    { id: 2, name: 'Dima' },
+    { id: 3, name: 'Alexandro' },
+    { id: 4, name: 'Sema' },
+    { id: 5, name: 'Vova' },
+    { id: 6, name: 'Afona' },
+    { id: 7, name: 'Vasya' },
+    { id: 8, name: 'Evgeniy' },
+    { id: 9, name: 'Yra' },
+    { id: 10, name: 'Levan' },
+]
+
+let newArray = array.filter(uWithA => { return uWithA.name[0] === 'A' })
+
+console.log(newArray)
