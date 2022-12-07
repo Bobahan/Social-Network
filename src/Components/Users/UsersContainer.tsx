@@ -1,22 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from "../../redux/users-selectors";
+import { getCurrentPage, getFilteredUsers, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 import { actionsUsers, FilterType, follow, requestUsers, unfollow } from "../../redux/users-reducer";
+
 class UsersContainer extends React.Component<MapStatePropsType & MapDispatchPropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize, '')
+        this.props.getUsers(this.props.currentPage, this.props.pageSize, this.props.filter)
     }
 
     onPageChange = (page: number) => {
-        this.props.getUsers(page, this.props.pageSize, this.props.filter.term)
+        this.props.getUsers(page, this.props.pageSize, this.props.filter)
     }
 
-    searchUsers = (filter: FilterType) => {
-        this.props.getUsers(1, this.props.pageSize, filter.term)
+    onSearchUsers = (filter: FilterType) => {
+        this.props.getUsers(1, this.props.pageSize, filter)
     }
 
     render() {
@@ -33,7 +34,7 @@ class UsersContainer extends React.Component<MapStatePropsType & MapDispatchProp
                     isFollowingProgress={this.props.isFollowingProgress}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
-                    searchUsers={this.searchUsers.bind(this)}
+                    onSearchUsers={this.onSearchUsers.bind(this)}
                 />
             </div>
         )
@@ -48,14 +49,14 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
-        filter: getUsersFilter(state)
+        filter: getFilteredUsers(state)
     }
 }
 
 let mapDispatchToProps = (dispatch: any): MapDispatchPropsType => {
     return {
-        getUsers: (page: number, pageSize: number, term: string) => {
-            dispatch(requestUsers(page, pageSize, term))
+        getUsers: (page: number, pageSize: number, filter: FilterType) => {
+            dispatch(requestUsers(page, pageSize, filter))
         },
         isFollowingProgress: (isDisabling: boolean, userID: number) => {
             dispatch(actionsUsers.isFollowingProgress(isDisabling, userID))
@@ -80,7 +81,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    getUsers: (currentPage: number, pageSize: number, term: string) => void
+    getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
     isFollowingProgress: (isDisabling: boolean, userID: number) => void
     follow: (userID: number) => void
     unfollow: (userID: number) => void

@@ -12,7 +12,8 @@ let initialState = {
     isFetching: false as boolean,
     followingInProgress: [] as Array<number>, // array of users ids
     filter: {
-        term: ''
+        term: '',
+        friend: null as null | boolean
     }
 }
 export type InitialStateType = typeof initialState
@@ -85,16 +86,16 @@ export const actionsUsers = {
     setTotalUsersCount: (totalUsersCount: number) => ({ type: 'SET_TOTAL_USERS_COUNT', totalUsersCount } as const),
     toogleIsFetching: (isFetching: boolean) => ({ type: 'IS_FETCHING', isFetching } as const),
     isFollowingProgress: (isDisabling: boolean, userID: number) => ({ type: 'IS_FOLLOWING', isDisabling, userID } as const),
-    setFilter: (term: string) => ({ type: 'SET_FILTER', payload: { term } } as const)
+    setFilter: (filter: FilterType) => ({ type: 'SET_FILTER', payload: filter } as const)
 }
 type ActionTypes = InferActionsType<typeof actionsUsers>
 
-export const requestUsers = (page: number, pageSize: number, term: string): ThunkType<ActionTypes> => async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType<ActionTypes> => async (dispatch) => {
     dispatch(actionsUsers.toogleIsFetching(true))
     dispatch(actionsUsers.changePage(page))
-    dispatch(actionsUsers.setFilter(term))
+    dispatch(actionsUsers.setFilter(filter))
 
-    let response = await usersAPI.getUsers(page, pageSize, term)
+    let response = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
     dispatch(actionsUsers.toogleIsFetching(false))
     dispatch(actionsUsers.setUsers(response.items))
     dispatch(actionsUsers.setTotalUsersCount(response.totalCount))
