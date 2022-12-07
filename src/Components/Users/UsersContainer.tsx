@@ -6,7 +6,7 @@ import Preloader from "../Common/Preloader/Preloader";
 
 export const UsersPage = () => {
     const isFetching = useSelector(getIsFetching)
-
+    
     return (
         <div>
             {isFetching ? <Preloader /> : null}

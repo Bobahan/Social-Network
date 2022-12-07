@@ -3,7 +3,7 @@ import { authReducer } from "./auth-reducer";
 import { dialogsReducer } from "./dialogs-reducer";
 import { profileReducer } from "./profile-reducer";
 import { usersReducer } from "./users-reducer";
-import ThunkMiddleware, { ThunkAction } from "redux-thunk";
+import ThunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './app-reducer';
 
@@ -20,7 +20,9 @@ export type AppStateType = ReturnType<typeof rootReducer>
 
 export type InferActionsType<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
-export type ThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
+export type ThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A> // типизация санки, где она возвращает асинхронную функцию в виде Промиса
+
+export type DispatchType = ThunkDispatch<AppStateType, any, Action> // dispatch(санк креэйторов)
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

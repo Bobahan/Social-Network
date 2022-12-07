@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FilterType, requestUsers, follow, unfollow } from "../../redux/users-reducer";
 import { getCurrentPage, getFilteredUsers, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers } from "../../redux/users-selectors";
 import { ThunkDispatch } from "redux-thunk";
-import { AppStateType } from "../../redux/redux-store";
+import { AppStateType, DispatchType } from "../../redux/redux-store";
 import { Action } from "redux";
 
 import Paginator from '../Common/Paginator/Paginator';
@@ -19,7 +19,6 @@ export const Users = () => {
     const users = useSelector(getUsers)
     const followingInProgress = useSelector(getFollowingInProgress)
 
-    type DispatchType = ThunkDispatch<AppStateType, any, Action>
     const dispatch = useDispatch<DispatchType>()
 
     useEffect(() => {

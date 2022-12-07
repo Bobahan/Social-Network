@@ -2,17 +2,22 @@ import React from "react";
 import LoginForm from "./LoginForm";
 import style from './Login.module.css';
 import { reduxForm } from 'redux-form'
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
-import { AppStateType } from "../../redux/redux-store";
+import { AppStateType, DispatchType } from "../../redux/redux-store";
 
-const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+export const Login = () => {
+    const captcha = useSelector((state: AppStateType) => state.auth.captcha)
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+
+    const dispatch = useDispatch<DispatchType>()
+
     const onSubmit = (formData: LoginFormType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Navigate to={'/profile'} />
     }
 
@@ -22,23 +27,13 @@ const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
                 <div>
                     <h2 style={{ 'margin': '0' }}>Login</h2>
                 </div>
-                <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha} />
+                <LoginReduxForm onSubmit={onSubmit} captcha={captcha} />
             </div>
         </div>
     )
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        isAuth: state.auth.isAuth,
-        captcha: state.auth.captcha
-    }
-}
-
 export type LoginFormType = { email: string, password: string, rememberMe: boolean, captcha: string }
 export type LoginFormOwnProps = { captcha: string | null }
-type MapStatePropsType = { isAuth: boolean, captcha: string | null }
-type MapDispatchPropsType = { login: (email: string, password: string, rememberMe: boolean, captcha: string) => void }
-const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm)
 
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, { login })(Login)
+const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm)

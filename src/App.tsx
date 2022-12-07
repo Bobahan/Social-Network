@@ -1,16 +1,18 @@
 import './App.css';
 import React from 'react';
+
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
 import Navbar from './Components/Navbar/Navbar';
 import { UsersPage } from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
-import Login from './Components/Login/Login';
-import { connect } from 'react-redux';
+import { Login } from './Components/Login/Login';
 import { withRouter } from './Components/HOC/withRouter';
-import { compose } from 'redux';
 import Preloader from './Components/Common/Preloader/Preloader';
 import store, { AppStateType } from './redux/redux-store';
-import { Provider } from 'react-redux';
 import { withSuspense } from './Components/HOC/withSuspense';
 import { actionsApp } from './redux/app-reducer';
 
@@ -22,7 +24,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToProps> {
   }
 
   render() {
-    if (!this.props.initialized) {  
+    if (!this.props.initialized) {
       return <Preloader />
     }
     return (
