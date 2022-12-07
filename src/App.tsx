@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
-import UsersContainer from './Components/Users/UsersContainer';
+import { UsersPage } from './Components/Users/UsersContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToProps> {
   }
 
   render() {
-    if (!this.props.initialized) {
+    if (!this.props.initialized) {  
       return <Preloader />
     }
     return (
@@ -36,7 +36,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToProps> {
               <Route path=':userId' element={<ProfileContainer />} />
             </Route>
             <Route path='/dialogs' element={<DialogsContainer />} />
-            <Route path='/users' element={<UsersContainer />} />
+            <Route path='/users' element={<UsersPage />} />
             <Route path='/login' element={<Login />} />
             <Route path='*' element={<div style={{ 'display': 'flex', "justifyContent": 'center', 'alignItems': 'center', 'height': '100%', 'fontWeight': '700' }}>404 NOT FOUND</div>} />
           </Routes>

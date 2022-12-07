@@ -34,13 +34,7 @@ const usersSearchFormValidate = (values: any) => {
     return errors
 }
 
-type UsersSearchFormType = {
-    onSearchUsers: (filter: FilterType) => void
-}
-
-type FormType = {
-    term: string
-    friend: string
-}
+type UsersSearchFormType = { onSearchUsers: (filter: FilterType) => void }
+type FormType = { term: string, friend: string }
 
 export default UsersSearchForm
