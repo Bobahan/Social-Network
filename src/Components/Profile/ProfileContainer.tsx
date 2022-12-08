@@ -1,16 +1,40 @@
-import React from "react";
-import { connect } from "react-redux"
+import React, { useEffect, useId } from "react";
+import { connect, useDispatch, useSelector } from "react-redux"
 import { withRouter } from "../HOC/withRouter";
 import { getStatus, saveProfile, getProfile, updatePhoto, updateStatus } from "../../redux/profile-reducer";
 import { compose } from "redux";
 import { withAuthRedirect } from "../HOC/withAuthRedirect";
 import Profile from "./Profile";
 import { PhotosType, ProfileType } from "../../types/types";
-import { AppStateType } from "../../redux/redux-store";
+import { AppStateType, DispatchType } from "../../redux/redux-store";
 import { useParams } from 'react-router-dom';
+
+// withRouter -> let params = useParams() -> this.props.router.params
+// params: userId: "27029"
+
+// const ProfilePage = () => {
+//     const authorizedID = useSelector((state: AppStateType) => state.auth.id)
+
+//     let params = useParams();
+//     const dispatch = useDispatch<DispatchType>()
+
+//     const updateProfile = () => {
+//         let userID = params.userId // '27029'
+//         if (!userID) {
+//             userID = authorizedID
+//         }
+//         dispatch(getProfile(userID))
+//         dispatch(getStatus(userID))
+//     }
+
+//     useEffect(() => {
+//         updateProfile()
+//     }, [userID])
+// } 
+
 class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType & PathParamsType> {
     updateProfile() {
-        let userID = this.props.router.params.userId
+        let userID: number | null = +this.props.router.params.userId
         if (!userID) {
             userID = this.props.authorizedID
         }
@@ -23,7 +47,7 @@ class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatch
     }
 
     componentDidUpdate(prevProps: any) {
-        if (prevProps.router.params.userId !== this.props.router.params.userId) { // 5 !== 6 // if (true)
+        if (prevProps.router.params.userId !== this.props.router.params.userId) { // id5 !== id6 // true -> обновись
             this.updateProfile()
         }
     }

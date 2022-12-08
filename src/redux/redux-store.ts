@@ -28,4 +28,7 @@ export type DispatchType = ThunkDispatch<AppStateType, any, Action> // dispatch(
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ThunkMiddleware)))
 
+// @ts-ignore
+window.store = store
+
 export default store
