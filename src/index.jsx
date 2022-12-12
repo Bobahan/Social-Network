@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { MainApp } from './App';
 import './index.css';
+import store from './redux/redux-store';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-root.render(<MainApp />)
+root.render(
+    <BrowserRouter >
+        <Provider store={store}>
+            <MainApp />
+        </Provider>
+    </BrowserRouter>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
@@ -51,4 +60,4 @@ doHomework('math', finishedHomework)
 // clearTimeout
 // контекст вызова this
 
-// сохранять значение между вызовами. только innerWrapper будет доступно свое замыкание
+// сохранять значение между вызовами. только innerWrapper будет доступно свое замыкание\

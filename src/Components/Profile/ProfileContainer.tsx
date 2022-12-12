@@ -34,7 +34,7 @@ import { useParams } from 'react-router-dom';
 
 class ProfileContainer extends React.Component<MapStateToPropsType & MapDispatchToPropsType & PathParamsType> {
     updateProfile() {
-        let userID: number | null = +this.props.router.params.userId
+        let userID = this.props.router.params.userId
         if (!userID) {
             userID = this.props.authorizedID
         }

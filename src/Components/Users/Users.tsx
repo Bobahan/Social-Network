@@ -8,18 +8,35 @@ import { DispatchType } from "../../redux/redux-store";
 import Paginator from '../Common/Paginator/Paginator';
 import User from "./User";
 import UsersSearchForm from "../SearchForm";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export const Users = () => {
     const totalUsersCount = useSelector(getTotalUsersCount)
     const pageSize = useSelector(getPageSize)
     const currentPage = useSelector(getCurrentPage)
-    const filter = useSelector(getFilteredUsers) // достали актуальные данные из Redux 
+    const filter = useSelector(getFilteredUsers)
     const users = useSelector(getUsers)
     const followingInProgress = useSelector(getFollowingInProgress)
 
     const dispatch = useDispatch<DispatchType>()
     const navigate = useNavigate()
+    const location = useLocation() // здесь хранится значение адресной строки URL. Например ?term=a&friend=null&page=1
+
+    const [searchParams] = useSearchParams(location.search) // [['term': ''], ['page': 3], ['friend': null]]
+
+    useEffect(() => {
+        // @ts-ignore
+        let parsed: { term: string, page: string, friend: string } = Object.fromEntries([...searchParams])
+
+        let actualPage = currentPage
+        let actualFilter = filter
+
+        if (parsed.page) actualPage = +parsed.page
+        if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string }
+        if (parsed.friend) actualFilter = { ...actualFilter, friend: parsed.friend === 'null' ? null : parsed.friend === 'true' ? true : false }
+
+        dispatch(requestUsers(actualPage, pageSize, actualFilter))
+    }, [])
 
     useEffect(() => {
         navigate({
@@ -27,10 +44,6 @@ export const Users = () => {
             search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
         })
     }, [filter, currentPage])
-
-    useEffect(() => {
-        dispatch(requestUsers(currentPage, pageSize, filter))
-    }, [])
 
     const onPageChange = (page: number) => { dispatch(requestUsers(page, pageSize, filter)) }
     const onSearchUsers = (filter: FilterType) => { dispatch(requestUsers(1, pageSize, filter)) }

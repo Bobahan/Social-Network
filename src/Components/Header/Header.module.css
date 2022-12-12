@@ -1,6 +1,6 @@
 .header {
     grid-area: h;
-    background-color: red;
+    color: white;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -8,4 +8,5 @@
 
 .loginBlock {
     float: right;
+    margin-left: 10px;
 }
