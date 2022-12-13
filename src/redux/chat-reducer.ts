@@ -1,40 +1,45 @@
-import { Dispatch } from "redux"
-import { chatAPI, ChatMessageType } from "../API/chat-api"
+import { chatAPI } from './../API/chat-api';
+import { ChatMessageType } from "../API/chat-api"
 import { InferActionsType, ThunkType } from "./redux-store"
+import { Dispatch } from 'redux';
 
-let initialState = {
+const initialState = {
     messages: [] as ChatMessageType[]
 }
+type InitialStateType = typeof initialState
 
-type initialStateType = typeof initialState
-
-const chatReducer = (state = initialState, action: ActionsType): initialStateType => {
+export const chatReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'SET_MESSAGES':
+        case 'SET_MESSAGE':
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages]
+                messages: [...state.messages, ...action.payload.message]
             }
         default:
             return state
     }
 }
 
-export const actionsChat = {
-    setMessages: (messages: ChatMessageType[]) => ({ type: 'SET_MESSAGES', payload: { messages } } as const)
+const actionsChat = {
+    setMessages: (message: ChatMessageType[]) => ({ type: 'SET_MESSAGE', payload: { message } } as const)
 }
+type ActionsType = InferActionsType<typeof actionsChat>
 
-const newMessageHandlerCreator = (dispatch: Dispatch) => (messages: ChatMessageType[]) => {
-    dispatch(actionsChat.setMessages(messages))
+let _memoizeMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
+
+const newMessagesHandlerCreator = (dispatch: Dispatch) => {
+    if (_memoizeMessageHandler === null) {
+        _memoizeMessageHandler = (messages) => {
+            dispatch(actionsChat.setMessages(messages))
+        }
+    }
+    return _memoizeMessageHandler
 }
 
 export const startMessagesListening = (): ThunkType<ActionsType> => async (dispatch) => {
-    chatAPI.subscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.subscribe(newMessagesHandlerCreator(dispatch))
 }
 
 export const stopMessagesListening = (): ThunkType<ActionsType> => async (dispatch) => {
-    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.unsubscribe(newMessagesHandlerCreator(dispatch))
 }
-
-type ActionsType = InferActionsType<typeof actionsChat>
-export default chatReducer 

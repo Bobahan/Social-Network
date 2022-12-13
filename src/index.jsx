@@ -52,7 +52,6 @@ const doHomework = (subject, fn) => {
 
 doHomework('math', finishedHomework)
 
-
 // функция высшего порядка
 // замыкание
 // колбэк
@@ -60,4 +59,24 @@ doHomework('math', finishedHomework)
 // clearTimeout
 // контекст вызова this
 
-// сохранять значение между вызовами. только innerWrapper будет доступно свое замыкание\
+// переменная определенная в замыкании сохраняет значение между вызовами функции 
+
+const add = (n) => (n + 10)
+
+const memoize = (fn) => {
+    let cache = {}
+    return (...args) => {
+        let n = args[0]
+        if(n in cache) {
+            return cache[n]
+        } else {
+            let result = fn(n)
+            cache[n] = result
+            return result
+        }
+    }
+}
+
+const memoizedAdd = memoize(add);
+memoizedAdd(3);  // вычислено
+memoizedAdd(3);  // взято из кэша

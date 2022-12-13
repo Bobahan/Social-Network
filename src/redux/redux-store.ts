@@ -1,3 +1,4 @@
+import { chatReducer } from './chat-reducer';
 import { Action, applyMiddleware, combineReducers, compose, createStore, Dispatch } from "redux";
 import { authReducer } from "./auth-reducer";
 import { dialogsReducer } from "./dialogs-reducer";
@@ -6,7 +7,6 @@ import { usersReducer } from "./users-reducer";
 import ThunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './app-reducer';
-import chatReducer from "./chat-reducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
