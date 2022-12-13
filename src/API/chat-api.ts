@@ -5,7 +5,7 @@ export type ChatMessageType = {
     userName: string
 }
 
-let ws: WebSocket
+let ws: WebSocket | null = null
 
 const closeHandler = () => {
     setTimeout(connectChannel, 3000)
@@ -16,7 +16,7 @@ const connectChannel = () => {
     ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx') // if ws === null
     ws.addEventListener('close', closeHandler)
-    /// ЗАСАНДАЛИТЬ ws (новый канал)
+    ws.addEventListener('message', messageHandler)
 }
 
 // добавляем сообщенния
@@ -35,6 +35,18 @@ export const chatAPI = {
     },
     unsubscribe(callbackListener: SubscribersType) { // приходит подписчик
         subscribers = subscribers.filter(s => s !== callbackListener)
+    },
+    sendMessage(message: string) {
+        ws?.send(message)
+    },
+    startChannel() {
+        connectChannel()
+    },
+    stopChannel() {
+        subscribers = []
+        ws?.removeEventListener('close', closeHandler)
+        ws?.removeEventListener('message', messageHandler)
+        ws?.close()
     }
 }
 

@@ -18,8 +18,6 @@ export const Header: React.FC = () => {
         dispatch(logout())
     }
 
-
-
     const { Header } = Layout
     return (
         <Header className="header" style={{ 'height': '100%' }}>

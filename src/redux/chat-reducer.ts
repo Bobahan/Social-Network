@@ -21,7 +21,7 @@ export const chatReducer = (state = initialState, action: ActionsType): InitialS
 }
 
 const actionsChat = {
-    setMessages: (message: ChatMessageType[]) => ({ type: 'SET_MESSAGE', payload: { message } } as const)
+    setMessages: (message: ChatMessageType[]) => ({ type: 'SET_MESSAGE', payload: { message } } as const),
 }
 type ActionsType = InferActionsType<typeof actionsChat>
 
@@ -37,9 +37,15 @@ const newMessagesHandlerCreator = (dispatch: Dispatch) => {
 }
 
 export const startMessagesListening = (): ThunkType<ActionsType> => async (dispatch) => {
+    chatAPI.startChannel()
     chatAPI.subscribe(newMessagesHandlerCreator(dispatch))
 }
 
 export const stopMessagesListening = (): ThunkType<ActionsType> => async (dispatch) => {
     chatAPI.unsubscribe(newMessagesHandlerCreator(dispatch))
+    chatAPI.stopChannel()
+}
+
+export const sendMessage = (message: string): ThunkType<ActionsType> => async (dispatch) => {
+    chatAPI.sendMessage(message)
 }
