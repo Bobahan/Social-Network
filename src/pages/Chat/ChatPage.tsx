@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ws } from "../../API/chat-api";
 import { sendMessage, startMessagesListening, stopMessagesListening } from "../../redux/chat-reducer";
 import { AppStateType, DispatchType } from "../../redux/redux-store";
-
+import Preloader from "../../Components/Common/Preloader/Preloader";
 
 export type ChatMessageType = {
     message: string
@@ -21,6 +22,7 @@ const ChatPage: React.FC = () => {
 
 const Chat: React.FC = () => {
     const dispatch = useDispatch<DispatchType>()
+    const status = useSelector((state: AppStateType) => state.chat.status)
 
     useEffect(() => {
         dispatch(startMessagesListening())
@@ -31,8 +33,12 @@ const Chat: React.FC = () => {
 
     return (
         <div>
-            <Messages />
-            <AddMessageForm />
+            {status === 'error' ? <div>Some error occured. Please refresh the page</div> :
+                <>
+                    <Messages />
+                    <AddMessageForm />
+                </>
+            }
         </div>
     )
 }
@@ -61,9 +67,9 @@ const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
 
 const AddMessageForm: React.FC<{}> = ({ }) => {
     const [message, setMessage] = useState('')
-    const [channelStatus, setChannelStatus] = useState<'pending' | 'ready'>('pending')
 
     const dispatch = useDispatch<DispatchType>()
+    const status = useSelector((state: AppStateType) => state.chat.status)
 
     const sendMessageHandler = () => {
         if (!message) {
@@ -80,5 +86,9 @@ const AddMessageForm: React.FC<{}> = ({ }) => {
         </div>
     )
 }
+
+// задизейбли если readyState не OPEN
+// true буолуохтаах disable
+// readyState 1 !=== 0 
 
 export default ChatPage
