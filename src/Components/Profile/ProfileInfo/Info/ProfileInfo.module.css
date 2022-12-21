@@ -23,7 +23,7 @@
 	background-color: white;
 	line-height: 22px;
 	height: 40px;
-	padding: 10px 20px;
+	padding: 10px 0px;
 	box-sizing: border-box;
 	border: none;
 	margin: 0;
@@ -37,4 +37,8 @@
 	display: block;
 	width: 0;
 	height: 0;
+}
+
+.profileInfo {
+	margin: 10px;
 }
