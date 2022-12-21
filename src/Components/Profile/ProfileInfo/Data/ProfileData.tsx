@@ -4,14 +4,14 @@ import style from './ProfileData.module.css';
 
 import { ContactsType, ProfileType } from "../../../../types/types";
 
-const ProfileData: React.FC<ProfileDataType> = (props) => {
+export const ProfileData: React.FC<ProfileDataType> = (props) => {
     return (
         <div className={style.profileBlock}>
             {props.isOwner && <div><button onClick={props.activateEditMode}>Edit</button></div>}
-            <div><span >AboutMe:</span><span>{props.profile.aboutMe}</span></div>
-            <div><span>FullName:</span><span>{props.profile.fullName}</span></div>
+            <div><span >About Me:</span><span>{props.profile.aboutMe}</span></div>
+            <div><span>Fullname:</span><span>{props.profile.fullName}</span></div>
             <div><span>UserID:</span><span>{props.profile.userId}</span></div>
-            <div><span>Looking For A Job Description:</span><span>{props.profile.lookingForAJobDescription}</span></div>
+            <div><span>Looking for a job:</span><span>{props.profile.lookingForAJobDescription}</span></div>
             <div>
                 <span>Contacts:</span>
                 <span>{Object.keys(props.profile.contacts).map(key => {
@@ -22,10 +22,4 @@ const ProfileData: React.FC<ProfileDataType> = (props) => {
     )
 }
 
-type ProfileDataType = {
-    profile: ProfileType
-    isOwner: boolean
-    activateEditMode: () => void
-}
-
-export default ProfileData
+type ProfileDataType = { profile: ProfileType, isOwner: boolean, activateEditMode: () => void }
