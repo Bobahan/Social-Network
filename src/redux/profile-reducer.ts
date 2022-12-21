@@ -3,11 +3,6 @@ import { profileAPI } from "../API/profile-api";
 import { PhotosType, ProfileType } from "../types/types";
 import { InferActionsType, ThunkType } from "./redux-store";
 
-export type PostType = {
-    id: number
-    message: string
-}
-
 let initialState = {
     posts: [
         { id: 1, message: 'Hello' },
@@ -17,16 +12,6 @@ let initialState = {
     profile: null as ProfileType | null,
     status: null as string | null,
 }
-type InitialStateType = typeof initialState
-
-export const actionsProfile = {
-    addPost: (post: string) => ({ type: 'ADD_POST', post } as const),
-    getUserProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
-    setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
-    deletePost: (postID: number) => ({ type: 'DELETE_POST', postID } as const),
-    setProfilePhoto: (photo: PhotosType) => ({ type: 'SAVE_PHOTO', photo } as const),
-}
-type ActionsType = InferActionsType<typeof actionsProfile>
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -102,3 +87,16 @@ export const saveProfile = (profile: ProfileType): ThunkType<ActionsType | Retur
         return Promise.reject(response.messages[0])
     }
 }
+
+export const actionsProfile = {
+    addPost: (post: string) => ({ type: 'ADD_POST', post } as const),
+    getUserProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
+    setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
+    deletePost: (postID: number) => ({ type: 'DELETE_POST', postID } as const),
+    setProfilePhoto: (photo: PhotosType) => ({ type: 'SAVE_PHOTO', photo } as const),
+}
+
+export type PostType = { id: number, message: string }
+
+type InitialStateType = typeof initialState
+type ActionsType = InferActionsType<typeof actionsProfile>

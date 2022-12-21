@@ -4,12 +4,6 @@ import { authentication } from "./auth-reducer";
 let initialState = {
     initialized: false,
 }
-type InitialStateType = typeof initialState
-
-export const actionsApp = {
-    initializeApp: () => ({ type: 'INITIALIZED_SUCCESS' } as const)
-}
-type ActionTypes = InferActionsType<typeof actionsApp>
 
 export const appReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
@@ -30,3 +24,10 @@ export const initializeApp = () => (dispatch: any) => {
             dispatch(actionsApp.initializeApp())
         })
 }
+
+export const actionsApp = {
+    initializeApp: () => ({ type: 'INITIALIZED_SUCCESS' } as const)
+}
+
+type InitialStateType = typeof initialState
+type ActionTypes = InferActionsType<typeof actionsApp>

@@ -11,13 +11,6 @@ let initialState = {
     isAuth: false,
     captcha: null as string | null
 }
-type InitialStateType = typeof initialState
-
-export const actionsAuth = {
-    setUserDataActionCreator: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({ type: 'SET_USER_DATA', payload: { email, id, login, isAuth } } as const),
-    getCapchaURLSuccess: (captcha: string) => ({ type: 'GET_CAPTCHA_URL', payload: { captcha } } as const)
-}
-type ActionTypes = InferActionsType<typeof actionsAuth>
 
 export const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
@@ -69,3 +62,11 @@ export const getCapchaURL = () => async (dispatch: any) => {
     const captchaURL = response.url
     dispatch(actionsAuth.getCapchaURLSuccess(captchaURL))
 }
+
+export const actionsAuth = {
+    setUserDataActionCreator: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({ type: 'SET_USER_DATA', payload: { email, id, login, isAuth } } as const),
+    getCapchaURLSuccess: (captcha: string) => ({ type: 'GET_CAPTCHA_URL', payload: { captcha } } as const)
+}
+
+type InitialStateType = typeof initialState
+type ActionTypes = InferActionsType<typeof actionsAuth>
