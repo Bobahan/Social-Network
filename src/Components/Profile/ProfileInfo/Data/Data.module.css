@@ -1,0 +1,47 @@
+.profileBlock {
+    margin-top: 10px;
+}
+
+.profileBlock>div>span:first-child {
+    font-weight: 700;
+    border-bottom: 5%;
+}
+
+.profileBlock>div>span:last-child {
+    margin-left: 5px;
+}
+
+.profileSave {
+    display: flex;
+}
+
+.profileSave > div {
+    font-weight: 700;
+}
+
+.saveButtton {
+    margin-top: 10px;
+}
+
+.aboutMe {
+    align-self: center;
+}
+
+.userID {
+    margin-left: 5px;
+}
+
+.contactsBlock {
+    margin-top: 10px;
+}
+
+.contactsBlock > span:first-child {
+    font-weight: 700;
+    border-radius: 5%;
+}
+
+.lookingForAJob {
+    font-weight: 700;
+    border-radius: 5%;
+    align-self: center;
+}
