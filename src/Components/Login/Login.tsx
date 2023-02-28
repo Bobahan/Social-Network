@@ -1,39 +1,42 @@
-import React from "react";
-import LoginForm from "./LoginForm";
+import LoginForm from './LoginForm';
 import style from './Login.module.css';
-import { reduxForm } from 'redux-form'
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/auth-reducer";
-import { Navigate } from "react-router-dom";
-import { AppStateType, DispatchType } from "../../redux/redux-store";
+import { reduxForm } from 'redux-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/auth-reducer';
+import { Navigate } from 'react-router-dom';
+import { AppStateType, DispatchType } from '../../redux/redux-store';
 
 export const Login = () => {
-    const captcha = useSelector((state: AppStateType) => state.auth.captcha)
-    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+  const captcha = useSelector((state: AppStateType) => state.auth.captcha);
+  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
 
-    const dispatch = useDispatch<DispatchType>()
+  const dispatch = useDispatch<DispatchType>();
 
-    const onSubmit = (formData: LoginFormType) => {
-        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
-    }
+  const onSubmit = (formData: LoginFormType) => {
+    dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha));
+  };
 
-    if (isAuth) {
-        return <Navigate to={'/profile'} />
-    }
+  if (isAuth) {
+    return <Navigate to={'/profile'} />;
+  }
 
-    return (
-        <div>
-            <div className={style.login}>
-                <div>
-                    <h2 style={{ 'margin': '0' }}>Login</h2>
-                </div>
-                <LoginReduxForm onSubmit={onSubmit} captcha={captcha} />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="container">
+      <div className={style.login}>
+        <h2>Login</h2>
+        <LoginReduxForm onSubmit={onSubmit} captcha={captcha} />
+      </div>
+    </div>
+  );
+};
 
-export type LoginFormType = { email: string, password: string, rememberMe: boolean, captcha: string }
-export type LoginFormOwnProps = { captcha: string | null }
+export type LoginFormType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string;
+};
 
-const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm)
+export type LoginFormOwnProps = { captcha: string | null };
+
+const LoginReduxForm = reduxForm<LoginFormType, LoginFormOwnProps>({ form: 'login' })(LoginForm);
