@@ -1,18 +1,25 @@
 .selectedPage {
-    color: black;
-    font-weight: 700;
+  color: black;
+  font-weight: 700;
 }
 
 .paginator {
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.paginator div {
+  cursor: pointer;
+  padding: 10px;
 }
 
 .pageNumber {
-    padding: 2px;
-    border: 1px solid white;
+  padding: 2px;
+  border: 1px solid white;
 }
 
 .pageNumber.selectedPage {
-    font-weight: bold;
-    border-color: black;
+  font-weight: bold;
 }

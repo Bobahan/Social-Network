@@ -1,12 +1,12 @@
-import React from 'react';
-import preloader from '../../../assets/preloader.gif'
+import style from './Preloader.module.css';
+import preloader from '../../../assets/preloader.gif';
 
 const Preloader = () => {
-    return (
-        <div style={{'display': 'flex', 'justifyContent': 'center'}}>
-            <img alt="preloader" style={{ 'width': '100px' }} src={preloader} />
-        </div>
-    )
-}
+  return (
+    <div className={style.preloader}>
+      <img alt="preloader" src={preloader} />
+    </div>
+  );
+};
 
-export default Preloader
+export default Preloader;
