@@ -1,12 +1,18 @@
 .header {
-    grid-area: h;
-    color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  padding: 10px;
+  color: black;
+  grid-area: h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.loginBlock {
-    float: right;
-    margin-left: 10px;
+.header__logo {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.header__field {
+  display: flex;
+  align-items: center;
 }
