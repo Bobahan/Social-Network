@@ -1,0 +1,40 @@
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 50px;
+  margin: 20px;
+}
+
+.user__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+.user__avatar img {
+  max-width: 100px;
+  border-radius: 20px;
+}
+
+.user__avatar:first-child {
+  margin-top: 8px;
+}
+
+.user__info {
+  width: 50%;
+}
+
+.user__info__name {
+  text-align: center;
+  font-weight: 700;
+  color: black;
+}
+
+.user__info__follow {
+  display: flex;
+  justify-content: center;
+}
